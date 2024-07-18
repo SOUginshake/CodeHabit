@@ -1,5 +1,5 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
-import { join } from "path";
+import { join, extname } from "path";
 import { homedir } from "os";
 import { diffLines } from "diff";
 import { window } from "vscode";
@@ -30,41 +30,30 @@ export class LogFile {
    */
   wrightLogFile(action: string, filePath: string) {
     const logDirPath = join(homedir(), ".config", "codehabit", "logs");
-
-    if (!existsSync(logDirPath)) {
-      mkdirSync(logDirPath, { recursive: true });
-    }
-
     const logFilePath = join(logDirPath, "logfile.txt");
-    try {
-      const creationTime = new Date().toLocaleString();
-      /**
-       * ログファイルが存在しないときに新規作成するように
-       */
-      let existsText = "";
-      if (!existsSync(logFilePath)) {
-        writeFileSync(logFilePath, "");
-      } else {
-        existsText = readFileSync(logFilePath, "utf-8");
+    const filePathExtname = extname(filePath);
+    if (filePathExtname !== "") {
+      try {
+        const creationTime = new Date().toLocaleString();
+        let existsText = readFileSync(logFilePath, "utf-8");
+        /**
+         * ログメッセージの作成
+         */
+        const logMessage =
+          existsText +
+          action +
+          "," +
+          filePath +
+          ",1,Time," +
+          creationTime +
+          ",\n";
+        /**
+         * 書き込み
+         */
+        writeFileSync(logFilePath, logMessage);
+      } catch (error) {
+        console.error(error);
       }
-
-      /**
-       * ログメッセージの作成
-       */
-      const logMessage =
-        existsText +
-        action +
-        "," +
-        filePath +
-        ",1,Time," +
-        creationTime +
-        ",\n";
-      /**
-       * 書き込み
-       */
-      writeFileSync(logFilePath, logMessage);
-    } catch (error) {
-      console.error(error);
     }
   }
 

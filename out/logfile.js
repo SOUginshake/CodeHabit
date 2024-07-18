@@ -30,39 +30,31 @@ class LogFile {
      */
     wrightLogFile(action, filePath) {
         const logDirPath = (0, path_1.join)((0, os_1.homedir)(), ".config", "codehabit", "logs");
-        if (!(0, fs_1.existsSync)(logDirPath)) {
-            (0, fs_1.mkdirSync)(logDirPath, { recursive: true });
-        }
         const logFilePath = (0, path_1.join)(logDirPath, "logfile.txt");
-        try {
-            const creationTime = new Date().toLocaleString();
-            /**
-             * ログファイルが存在しないときに新規作成するように
-             */
-            let existsText = "";
-            if (!(0, fs_1.existsSync)(logFilePath)) {
-                (0, fs_1.writeFileSync)(logFilePath, "");
+        const filePathExtname = (0, path_1.extname)(filePath);
+        console.log("logFileExtname : ", filePathExtname);
+        if (filePathExtname !== "") {
+            try {
+                const creationTime = new Date().toLocaleString();
+                let existsText = (0, fs_1.readFileSync)(logFilePath, "utf-8");
+                /**
+                 * ログメッセージの作成
+                 */
+                const logMessage = existsText +
+                    action +
+                    "," +
+                    filePath +
+                    ",1,Time," +
+                    creationTime +
+                    ",\n";
+                /**
+                 * 書き込み
+                 */
+                (0, fs_1.writeFileSync)(logFilePath, logMessage);
             }
-            else {
-                existsText = (0, fs_1.readFileSync)(logFilePath, "utf-8");
+            catch (error) {
+                console.error(error);
             }
-            /**
-             * ログメッセージの作成
-             */
-            const logMessage = existsText +
-                action +
-                "," +
-                filePath +
-                ",1,Time," +
-                creationTime +
-                ",\n";
-            /**
-             * 書き込み
-             */
-            (0, fs_1.writeFileSync)(logFilePath, logMessage);
-        }
-        catch (error) {
-            console.error(error);
         }
     }
     /**
