@@ -32,7 +32,7 @@ export class LogFile {
     const logDirPath = join(homedir(), ".config", "codehabit", "logs");
     const logFilePath = join(logDirPath, "logfile.txt");
     const filePathExtname = extname(filePath);
-    if (filePathExtname !== "") {
+    if (filePathExtname !== "" && filePathExtname !== ".git") {
       try {
         const creationTime = new Date().toLocaleString();
         let existsText = readFileSync(logFilePath, "utf-8");
