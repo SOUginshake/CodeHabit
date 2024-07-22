@@ -32,8 +32,7 @@ class LogFile {
         const logDirPath = (0, path_1.join)((0, os_1.homedir)(), ".config", "codehabit", "logs");
         const logFilePath = (0, path_1.join)(logDirPath, "logfile.txt");
         const filePathExtname = (0, path_1.extname)(filePath);
-        console.log("logFileExtname : ", filePathExtname);
-        if (filePathExtname !== "") {
+        if (filePathExtname !== "" && filePathExtname !== ".git") {
             try {
                 const creationTime = new Date().toLocaleString();
                 let existsText = (0, fs_1.readFileSync)(logFilePath, "utf-8");
