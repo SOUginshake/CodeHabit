@@ -7,7 +7,7 @@ interface Achievement {
 
 export const achievements: Achievement[] = [
   /**
-   * 新規作成したソースファイルの総数
+   * 作成したソースファイルの総数
    */
   {
     name: "First Create",
@@ -22,4 +22,27 @@ export const achievements: Achievement[] = [
       return totalCreate > 0;
     },
   },
+  /**
+   * ソースファイルを編集した行数
+   */
+
+  /**
+   * デバッグを行った回数
+   */
+
+  /**
+   * 作成したファイルの種類数
+   */
+
+  /**
+   * デバッグしたソースファイルの種類数
+   */
+
+  /**
+   * 総開発日数
+   */
+
+  /**
+   * 連続開発日数
+   */
 ];
