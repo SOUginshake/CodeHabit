@@ -29,15 +29,57 @@ export function activate(context: ExtensionContext) {
   });
 
   /**
+   * 拡張子毎にファイル数・編集行数の統計を取得する
+   */
+  commands.registerCommand("extension.getStatistics", () => {
+    /**
+     * 統計データを管理するクラスのインスタンスを生成する
+     */
+    const statistics = new Statistics();
+    const recordStatistics = new RecordStatistics();
+
+    const logDirPath = join(homedir(), ".config", "codehabit", "logs");
+    const logFilePath = join(logDirPath, "logfile.txt");
+    try {
+      const statisticsData = statistics.getStatistics(logFilePath);
+      recordStatistics.wrightStatisticsFile(statisticsData);
+      window.showInformationMessage("統計情報を取得しました");
+    } catch (error) {
+      console.error("getStatisticsCommand!!!\n" + error);
+      window.showErrorMessage("統計情報の取得に失敗しました");
+    }
+  });
+
+  /**
+   * ユーザーのステータスを管理するクラスのインスタンスを生成する
+   */
+  const userClass = new UserClass();
+
+  /**
    * ユーザーが実績をどれだけ達成したか確認するコマンド
    */
   commands.registerCommand("extension.checkAchievements", () => {
-    const userClass = new UserClass();
     const statistics = new Statistics();
     const logDirPath = join(homedir(), ".config", "codehabit", "logs");
     const logFilePath = join(logDirPath, "logfile.txt");
     const statisticsData = statistics.getStatistics(logFilePath);
     userClass.checkAchievements(statisticsData);
+  });
+
+  /**
+   * 統計情報・実績達成状況を更新する
+   */
+  const interval = 5 * 60 * 1000;
+  setInterval(() => {
+    commands.executeCommand("extension.getStatistics");
+    commands.executeCommand("extension.checkAchievements");
+  }, interval);
+
+  /**
+   * ユーザーのステータスを表示する
+   */
+  commands.registerCommand("extension.showUserStatus", () => {
+    userClass.showUserStatus();
   });
 
   /**
@@ -108,36 +150,6 @@ export function activate(context: ExtensionContext) {
       window.showInformationMessage("アクティブなエディタがありません。");
     }
   });
-
-  /**
-   * 拡張子毎にファイル数・編集行数の統計を取得する
-   */
-  commands.registerCommand("extension.getStatistics", () => {
-    /**
-     * 統計データを管理するクラスのインスタンスを生成する
-     */
-    const statistics = new Statistics();
-    const recordStatistics = new RecordStatistics();
-
-    const logDirPath = join(homedir(), ".config", "codehabit", "logs");
-    const logFilePath = join(logDirPath, "logfile.txt");
-    try {
-      const statisticsData = statistics.getStatistics(logFilePath);
-      recordStatistics.wrightStatisticsFile(statisticsData);
-      window.showInformationMessage("統計情報を取得しました");
-    } catch (error) {
-      console.error("getStatisticsCommand!!!\n" + error);
-      window.showErrorMessage("統計情報の取得に失敗しました");
-    }
-  });
-
-  /**
-   * 統計情報を更新する
-   */
-  const interval = 5 * 60 * 1000;
-  setInterval(() => {
-    commands.executeCommand("extension.getStatistics");
-  }, interval);
 }
 
 // This method is called when your extension is deactivated

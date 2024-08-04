@@ -9,7 +9,7 @@
     "url": "https://github.com/SOUginshake/CodeHabit/tree/master"
   },
   "engines": {
-    "vscode": "^1.89.0"
+    "vscode": "^1.88.0"
   },
   "categories": [
     "Other"
@@ -39,6 +39,10 @@
       {
         "command": "extension.checkAchievements",
         "title": "Check Achievements"
+      },
+      {
+        "command": "extension.showUserStatus",
+        "title": "Show User Status"
       }
     ]
   },

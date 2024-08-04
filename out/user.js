@@ -9,19 +9,41 @@ class UserClass {
     user = {
         name: this.userName,
         exp: 0,
-        unlockedAchevement: [],
+        unlockedAchievements: [],
     };
     checkAchievements(statistics) {
         for (const achievement of achievement_1.achievements) {
-            if (!this.user.unlockedAchevement.includes(achievement.name) &&
+            if (!this.user.unlockedAchievements.includes(achievement.name) &&
                 achievement.condition(statistics)) {
                 this.user.exp += achievement.exp;
-                console.log("you got", achievement.exp);
-                this.user.unlockedAchevement.push(achievement.name);
-                console.log("you unlocked", achievement.name);
-                vscode_1.window.showInformationMessage("unlocked : " + achievement.name + ", exp : " + achievement.exp);
+                this.user.unlockedAchievements.push(achievement.name);
+                vscode_1.window.showInformationMessage("unlocked : " + achievement.name + " exp : " + achievement.exp);
             }
         }
+    }
+    showUserStatus() {
+        const panel = vscode_1.window.createWebviewPanel("userStatus", "User Status", vscode_1.ViewColumn.One, {});
+        const achievementsList = this.user.unlockedAchievements
+            .map((achievement) => "<li>" + achievement + "</li>")
+            .join("");
+        panel.webview.html = this.getWebviewContent(this.user.name, this.user.exp, achievementsList);
+    }
+    getWebviewContent(userName, userExp, achievementsList) {
+        return `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>User Status</title>
+    </head>
+    <body>
+        <h2>${userName}</h2>
+        <h3>TotalExp : ${userExp}</h3>
+        <h3>Unlocked Achievements</h3>
+        <ul>${achievementsList}</ul>
+    </body>
+    </html>`;
     }
 }
 exports.UserClass = UserClass;
