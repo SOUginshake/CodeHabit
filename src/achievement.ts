@@ -22,9 +22,48 @@ export const achievements: Achievement[] = [
       return totalCreate > 0;
     },
   },
+  {
+    name: "Create over 10",
+    description: "ソースファイルを10個以上作成した",
+    exp: 200,
+    condition: (statistics) => {
+      let totalCreate = 0;
+      const CreateMap = statistics.get("Create");
+      CreateMap?.forEach((value) => {
+        totalCreate += value;
+      });
+      return totalCreate >= 10;
+    },
+  },
+  {
+    name: "Create over 100",
+    description: "ソースファイルを100個以上作成した",
+    exp: 500,
+    condition: (statistics) => {
+      let totalCreate = 0;
+      const CreateMap = statistics.get("Create");
+      CreateMap?.forEach((value) => {
+        totalCreate += value;
+      });
+      return totalCreate >= 100;
+    },
+  },
   /**
    * ソースファイルを編集した行数
    */
+  {
+    name: "First Edit",
+    description: "初めてソースファイルを編集した",
+    exp: 100,
+    condition: (statistics) => {
+      let totalEdit = 0;
+      const EditMap = statistics.get("ChangeLineCount");
+      EditMap?.forEach((value) => {
+        totalEdit += value;
+      });
+      return totalEdit > 0;
+    },
+  },
 
   /**
    * デバッグを行った回数

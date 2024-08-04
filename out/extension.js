@@ -29,15 +29,53 @@ function activate(context) {
         });
     });
     /**
+     * 拡張子毎にファイル数・編集行数の統計を取得する
+     */
+    vscode_1.commands.registerCommand("extension.getStatistics", () => {
+        /**
+         * 統計データを管理するクラスのインスタンスを生成する
+         */
+        const statistics = new statistics_1.Statistics();
+        const recordStatistics = new statistics_1.RecordStatistics();
+        const logDirPath = (0, path_1.join)((0, os_1.homedir)(), ".config", "codehabit", "logs");
+        const logFilePath = (0, path_1.join)(logDirPath, "logfile.txt");
+        try {
+            const statisticsData = statistics.getStatistics(logFilePath);
+            recordStatistics.wrightStatisticsFile(statisticsData);
+            vscode_1.window.showInformationMessage("統計情報を取得しました");
+        }
+        catch (error) {
+            console.error("getStatisticsCommand!!!\n" + error);
+            vscode_1.window.showErrorMessage("統計情報の取得に失敗しました");
+        }
+    });
+    /**
+     * ユーザーのステータスを管理するクラスのインスタンスを生成する
+     */
+    const userClass = new user_1.UserClass();
+    /**
      * ユーザーが実績をどれだけ達成したか確認するコマンド
      */
     vscode_1.commands.registerCommand("extension.checkAchievements", () => {
-        const userClass = new user_1.UserClass();
         const statistics = new statistics_1.Statistics();
         const logDirPath = (0, path_1.join)((0, os_1.homedir)(), ".config", "codehabit", "logs");
         const logFilePath = (0, path_1.join)(logDirPath, "logfile.txt");
         const statisticsData = statistics.getStatistics(logFilePath);
         userClass.checkAchievements(statisticsData);
+    });
+    /**
+     * 統計情報・実績達成状況を更新する
+     */
+    const interval = 5 * 60 * 1000;
+    setInterval(() => {
+        vscode_1.commands.executeCommand("extension.getStatistics");
+        vscode_1.commands.executeCommand("extension.checkAchievements");
+    }, interval);
+    /**
+     * ユーザーのステータスを表示する
+     */
+    vscode_1.commands.registerCommand("extension.showUserStatus", () => {
+        userClass.showUserStatus();
     });
     /**
      * ソースファイルを新規作成した日時と拡張子を取得する
@@ -103,34 +141,6 @@ function activate(context) {
             vscode_1.window.showInformationMessage("アクティブなエディタがありません。");
         }
     });
-    /**
-     * 拡張子毎にファイル数・編集行数の統計を取得する
-     */
-    vscode_1.commands.registerCommand("extension.getStatistics", () => {
-        /**
-         * 統計データを管理するクラスのインスタンスを生成する
-         */
-        const statistics = new statistics_1.Statistics();
-        const recordStatistics = new statistics_1.RecordStatistics();
-        const logDirPath = (0, path_1.join)((0, os_1.homedir)(), ".config", "codehabit", "logs");
-        const logFilePath = (0, path_1.join)(logDirPath, "logfile.txt");
-        try {
-            const statisticsData = statistics.getStatistics(logFilePath);
-            recordStatistics.wrightStatisticsFile(statisticsData);
-            vscode_1.window.showInformationMessage("統計情報を取得しました");
-        }
-        catch (error) {
-            console.error("getStatisticsCommand!!!\n" + error);
-            vscode_1.window.showErrorMessage("統計情報の取得に失敗しました");
-        }
-    });
-    /**
-     * 統計情報を更新する
-     */
-    const interval = 5 * 60 * 1000;
-    setInterval(() => {
-        vscode_1.commands.executeCommand("extension.getStatistics");
-    }, interval);
 }
 // This method is called when your extension is deactivated
 function deactivate() { }
