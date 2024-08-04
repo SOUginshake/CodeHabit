@@ -8,6 +8,7 @@ const os_1 = require("os");
 const recent_files_provider_1 = require("./recent-files-provider");
 const statistics_1 = require("./statistics");
 const logfile_1 = require("./logfile");
+const user_1 = require("./user");
 function activate(context) {
     /**
      * ログファイル操作を行うクラスのインスタンスとログファイルの生成
@@ -26,6 +27,17 @@ function activate(context) {
         vscode_1.workspace.openTextDocument(filePath).then((doc) => {
             vscode_1.window.showTextDocument(doc);
         });
+    });
+    /**
+     * ユーザーが実績をどれだけ達成したか確認するコマンド
+     */
+    vscode_1.commands.registerCommand("extension.checkAchievements", () => {
+        const userClass = new user_1.UserClass();
+        const statistics = new statistics_1.Statistics();
+        const logDirPath = (0, path_1.join)((0, os_1.homedir)(), ".config", "codehabit", "logs");
+        const logFilePath = (0, path_1.join)(logDirPath, "logfile.txt");
+        const statisticsData = statistics.getStatistics(logFilePath);
+        userClass.checkAchievements(statisticsData);
     });
     /**
      * ソースファイルを新規作成した日時と拡張子を取得する
