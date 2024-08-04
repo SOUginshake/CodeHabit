@@ -4,6 +4,7 @@ import { homedir } from "os";
 import { RecentFilesProvider } from "./recent-files-provider";
 import { Statistics, RecordStatistics } from "./statistics";
 import { LogFile } from "./logfile";
+import { UserClass } from "./user";
 
 export function activate(context: ExtensionContext) {
   /**
@@ -25,6 +26,18 @@ export function activate(context: ExtensionContext) {
     workspace.openTextDocument(filePath).then((doc) => {
       window.showTextDocument(doc);
     });
+  });
+
+  /**
+   * ユーザーが実績をどれだけ達成したか確認するコマンド
+   */
+  commands.registerCommand("extension.checkAchievements", () => {
+    const userClass = new UserClass();
+    const statistics = new Statistics();
+    const logDirPath = join(homedir(), ".config", "codehabit", "logs");
+    const logFilePath = join(logDirPath, "logfile.txt");
+    const statisticsData = statistics.getStatistics(logFilePath);
+    userClass.checkAchievements(statisticsData);
   });
 
   /**
