@@ -11,8 +11,8 @@ exports.achievements = [
         exp: 100,
         condition: (statistics) => {
             let totalCreate = 0;
-            const CreateMap = statistics.get("Create");
-            CreateMap?.forEach((value) => {
+            const createMap = statistics.get("Create");
+            createMap?.forEach((value) => {
                 totalCreate += value;
             });
             return totalCreate > 0;
@@ -24,8 +24,8 @@ exports.achievements = [
         exp: 200,
         condition: (statistics) => {
             let totalCreate = 0;
-            const CreateMap = statistics.get("Create");
-            CreateMap?.forEach((value) => {
+            const createMap = statistics.get("Create");
+            createMap?.forEach((value) => {
                 totalCreate += value;
             });
             return totalCreate >= 10;
@@ -37,8 +37,8 @@ exports.achievements = [
         exp: 500,
         condition: (statistics) => {
             let totalCreate = 0;
-            const CreateMap = statistics.get("Create");
-            CreateMap?.forEach((value) => {
+            const createMap = statistics.get("Create");
+            createMap?.forEach((value) => {
                 totalCreate += value;
             });
             return totalCreate >= 100;
@@ -53,8 +53,8 @@ exports.achievements = [
         exp: 100,
         condition: (statistics) => {
             let totalEdit = 0;
-            const EditMap = statistics.get("ChangeLineCount");
-            EditMap?.forEach((value) => {
+            const editMap = statistics.get("ChangeLineCount");
+            editMap?.forEach((value) => {
                 totalEdit += value;
             });
             return totalEdit > 0;
@@ -63,9 +63,37 @@ exports.achievements = [
     /**
      * デバッグを行った回数
      */
+    {
+        name: "First Debug",
+        description: "初めてソースファイルをデバッグした",
+        exp: 100,
+        condition: (statistics) => {
+            let totalDebug = 0;
+            const debugMap = statistics.get("Debug");
+            debugMap?.forEach((value) => {
+                totalDebug += value;
+            });
+            return totalDebug > 0;
+        },
+    },
     /**
      * 作成したファイルの種類数
      */
+    {
+        name: "10 types of extensions Created",
+        description: "3種類以上の拡張子のソースファイルを作成した",
+        exp: 100,
+        condition: (statistics) => {
+            let extensionTypesNum = 0;
+            const createMap = statistics.get("Create");
+            createMap?.forEach((value) => {
+                if (value > 0) {
+                    extensionTypesNum++;
+                }
+            });
+            return extensionTypesNum >= 3;
+        },
+    },
     /**
      * デバッグしたソースファイルの種類数
      */
