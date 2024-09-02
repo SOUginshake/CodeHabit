@@ -21,9 +21,10 @@ class Statistics {
      */
     getStatistics(logFilePath) {
         const returnMap = this.statisticsMap;
+        const allLogData = (0, fs_1.readFileSync)(logFilePath, "utf-8");
+        const lineOfLogData = allLogData.split("\n");
+        lineOfLogData.pop();
         try {
-            const allLogData = (0, fs_1.readFileSync)(logFilePath, "utf-8");
-            const lineOfLogData = allLogData.split("\n");
             for (const logEntries of lineOfLogData) {
                 const logEntriesList = logEntries.split(",");
                 const action = logEntriesList[0];

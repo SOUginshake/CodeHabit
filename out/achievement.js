@@ -80,7 +80,7 @@ exports.achievements = [
      * 作成したファイルの種類数
      */
     {
-        name: "10 types of extensions Created",
+        name: "3 types of extensions Created",
         description: "3種類以上の拡張子のソースファイルを作成した",
         exp: 100,
         condition: (statistics) => {
