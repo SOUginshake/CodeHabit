@@ -35,10 +35,10 @@ class LogFile {
         if (filePathExtname !== "" && filePathExtname !== ".git") {
             try {
                 const creationTime = new Date().toLocaleString();
-                let existsText = (0, fs_1.readFileSync)(logFilePath, "utf-8");
                 /**
                  * ログメッセージの作成
                  */
+                let existsText = (0, fs_1.readFileSync)(logFilePath, "utf-8");
                 const logMessage = existsText +
                     action +
                     "," +
@@ -68,9 +68,9 @@ class LogFile {
         try {
             changes.forEach((change) => {
                 if (change.added) {
-                    console.log("change value", change.value);
+                    //console.log("change value", change.value);
                     const lines = change.value.split("\n").slice(0, -1).length;
-                    console.log("lines", lines);
+                    //console.log("lines", lines);
                     changeCount += lines;
                 }
             });
@@ -79,7 +79,29 @@ class LogFile {
              */
             const existsText = (0, fs_1.readFileSync)(logFilePath, "utf-8");
             const logMessage = existsText + "ChangeLineCount," + filePath + "," + changeCount + ",\n";
-            console.log("ChangeLineCount", changeCount);
+            //console.log("ChangeLineCount", changeCount);
+            /**
+             * 書き込み
+             */
+            (0, fs_1.writeFileSync)(logFilePath, logMessage);
+        }
+        catch (error) {
+            console.error(error);
+        }
+    }
+    /**
+     * VSCodeがフォーカスされた日時を取得し、ログファイルに書き込む
+     */
+    focusTime() {
+        const logDirPath = (0, path_1.join)((0, os_1.homedir)(), ".config", "codehabit", "logs");
+        const logFilePath = (0, path_1.join)(logDirPath, "logfile.txt");
+        try {
+            const focusTime = new Date().toLocaleString();
+            /**
+             * ログメッセージの作成
+             */
+            const existsText = (0, fs_1.readFileSync)(logFilePath, "utf-8");
+            const logMessage = existsText + "FocusTime," + focusTime + ",\n";
             /**
              * 書き込み
              */

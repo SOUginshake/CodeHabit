@@ -141,6 +141,15 @@ function activate(context) {
             vscode_1.window.showInformationMessage("アクティブなエディタがありません。");
         }
     });
+    /**
+     * ウィンドウがフォーカスされた日時を取得する
+     */
+    vscode_1.window.onDidChangeWindowState((event) => {
+        if (event.focused) {
+            vscode_1.window.showInformationMessage("ウィンドウがフォーカスされました");
+            logFile.focusTime();
+        }
+    });
 }
 // This method is called when your extension is deactivated
 function deactivate() { }
