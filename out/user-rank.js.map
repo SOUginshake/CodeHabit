@@ -1,0 +1,1 @@
+{"version":3,"file":"user-rank.js","sourceRoot":"","sources":["../src/user-rank.ts"],"names":[],"mappings":";;;AAMa,QAAA,SAAS,GAAe;IACnC;QACE,IAAI,EAAE,UAAU;QAChB,WAAW,EAAE,cAAc;QAC3B,SAAS,EAAE,CAAC,OAAO,EAAE,EAAE;YACrB,OAAO,OAAO,GAAG,GAAG,CAAC;QACvB,CAAC;KACF;CACF,CAAC"}
