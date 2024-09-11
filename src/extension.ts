@@ -150,6 +150,16 @@ export function activate(context: ExtensionContext) {
       window.showInformationMessage("アクティブなエディタがありません。");
     }
   });
+
+  /**
+   * ウィンドウがフォーカスされた日時を取得する
+   */
+  window.onDidChangeWindowState((event) => {
+    if (event.focused) {
+      window.showInformationMessage("ウィンドウがフォーカスされました");
+      logFile.focusTime();
+    }
+  });
 }
 
 // This method is called when your extension is deactivated

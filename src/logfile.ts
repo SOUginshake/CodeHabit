@@ -35,10 +35,10 @@ export class LogFile {
     if (filePathExtname !== "" && filePathExtname !== ".git") {
       try {
         const creationTime = new Date().toLocaleString();
-        let existsText = readFileSync(logFilePath, "utf-8");
         /**
          * ログメッセージの作成
          */
+        let existsText = readFileSync(logFilePath, "utf-8");
         const logMessage =
           existsText +
           action +
@@ -69,9 +69,9 @@ export class LogFile {
     try {
       changes.forEach((change) => {
         if (change.added) {
-          console.log("change value", change.value);
+          //console.log("change value", change.value);
           const lines = change.value.split("\n").slice(0, -1).length;
-          console.log("lines", lines);
+          //console.log("lines", lines);
           changeCount += lines;
         }
       });
@@ -81,7 +81,29 @@ export class LogFile {
       const existsText = readFileSync(logFilePath, "utf-8");
       const logMessage =
         existsText + "ChangeLineCount," + filePath + "," + changeCount + ",\n";
-      console.log("ChangeLineCount", changeCount);
+      //console.log("ChangeLineCount", changeCount);
+      /**
+       * 書き込み
+       */
+      writeFileSync(logFilePath, logMessage);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  /**
+   * VSCodeがフォーカスされた日時を取得し、ログファイルに書き込む
+   */
+  focusTime() {
+    const logDirPath = join(homedir(), ".config", "codehabit", "logs");
+    const logFilePath = join(logDirPath, "logfile.txt");
+    try {
+      const focusTime = new Date().toLocaleString();
+      /**
+       * ログメッセージの作成
+       */
+      const existsText = readFileSync(logFilePath, "utf-8");
+      const logMessage = existsText + "FocusTime," + focusTime + ",\n";
       /**
        * 書き込み
        */

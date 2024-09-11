@@ -1,11 +1,13 @@
 import { homedir } from "os";
 import { achievements } from "./achievement";
+import { userRanks } from "./user-rank";
 import { ViewColumn, window } from "vscode";
 
 interface User {
   name: string;
   exp: number;
   unlockedAchievements: string[];
+  userRank: string;
 }
 
 export class UserClass {
@@ -15,6 +17,7 @@ export class UserClass {
     name: this.userName,
     exp: 0,
     unlockedAchievements: [],
+    userRank: "baby",
   };
 
   checkAchievements(statistics: Map<string, Map<string, number>>) {
@@ -28,6 +31,12 @@ export class UserClass {
         window.showInformationMessage(
           "unlocked : " + achievement.name + " exp : " + achievement.exp
         );
+      }
+    }
+    for (const userRank of userRanks) {
+      if (userRank.condition(this.user.exp)) {
+        this.user.userRank = userRank.rank;
+        window.showInformationMessage("Rank up to " + userRank.rank);
       }
     }
   }
@@ -47,14 +56,16 @@ export class UserClass {
     panel.webview.html = this.getWebviewContent(
       this.user.name,
       this.user.exp,
-      achievementsList
+      achievementsList,
+      this.user.userRank
     );
   }
 
   getWebviewContent(
     userName: string,
     userExp: number,
-    achievementsList: string
+    achievementsList: string,
+    userRank: string
   ): string {
     return `
     <!DOCTYPE html>
@@ -66,6 +77,7 @@ export class UserClass {
     </head>
     <body>
         <h2>${userName}</h2>
+        <h3>Rank : ${userRank}</h3>
         <h3>TotalExp : ${userExp}</h3>
         <h3>Unlocked Achievements</h3>
         <ul>${achievementsList}</ul>
