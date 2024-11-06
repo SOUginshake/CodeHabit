@@ -1,9 +1,9 @@
 {
-  "name": "codehabit",
-  "displayName": "CodeHabit",
+  "name": "codeaile",
+  "displayName": "CodeAile",
   "publisher": "SOUginshake",
   "description": "開発を行うことで実績を達成し、自身の成長を可視化する機能",
-  "version": "0.0.9",
+  "version": "1.0.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/SOUginshake/CodeHabit/tree/master"
@@ -43,6 +43,10 @@
       {
         "command": "extension.showUserStatus",
         "title": "Show User Status"
+      },
+      {
+        "command": "extension.resetUserStatus",
+        "title": "Reset User Status"
       }
     ]
   },

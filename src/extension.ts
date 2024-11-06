@@ -53,7 +53,7 @@ export function activate(context: ExtensionContext) {
   /**
    * ユーザーのステータスを管理するクラスのインスタンスを生成する
    */
-  const userClass = new UserClass();
+  const userClass = new UserClass(context);
 
   /**
    * ユーザーが実績をどれだけ達成したか確認するコマンド
@@ -79,7 +79,18 @@ export function activate(context: ExtensionContext) {
    * ユーザーのステータスを表示する
    */
   commands.registerCommand("extension.showUserStatus", () => {
-    userClass.showUserStatus();
+    const statistics = new Statistics();
+    const logDirPath = join(homedir(), ".config", "codehabit", "logs");
+    const logFilePath = join(logDirPath, "logfile.txt");
+    const statisticsData = statistics.getStatistics(logFilePath);
+    userClass.showUserStatus(statisticsData);
+  });
+
+  /**
+   * ユーザーのステータスをリセットする
+   */
+  commands.registerCommand("extension.resetUserStatus", () => {
+    userClass.resetUserStatus();
   });
 
   /**
