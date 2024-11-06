@@ -52,7 +52,7 @@ function activate(context) {
     /**
      * ユーザーのステータスを管理するクラスのインスタンスを生成する
      */
-    const userClass = new user_1.UserClass();
+    const userClass = new user_1.UserClass(context);
     /**
      * ユーザーが実績をどれだけ達成したか確認するコマンド
      */
@@ -75,7 +75,17 @@ function activate(context) {
      * ユーザーのステータスを表示する
      */
     vscode_1.commands.registerCommand("extension.showUserStatus", () => {
-        userClass.showUserStatus();
+        const statistics = new statistics_1.Statistics();
+        const logDirPath = (0, path_1.join)((0, os_1.homedir)(), ".config", "codehabit", "logs");
+        const logFilePath = (0, path_1.join)(logDirPath, "logfile.txt");
+        const statisticsData = statistics.getStatistics(logFilePath);
+        userClass.showUserStatus(statisticsData);
+    });
+    /**
+     * ユーザーのステータスをリセットする
+     */
+    vscode_1.commands.registerCommand("extension.resetUserStatus", () => {
+        userClass.resetUserStatus();
     });
     /**
      * ソースファイルを新規作成した日時と拡張子を取得する
