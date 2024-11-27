@@ -9,6 +9,7 @@ const recent_files_provider_1 = require("./recent-files-provider");
 const statistics_1 = require("./statistics");
 const logfile_1 = require("./logfile");
 const user_1 = require("./user");
+const aileWebviewProvider_1 = require("./aileWebviewProvider");
 function activate(context) {
     /**
      * ログファイル操作を行うクラスのインスタンスとログファイルの生成
@@ -28,6 +29,10 @@ function activate(context) {
             vscode_1.window.showTextDocument(doc);
         });
     });
+    /**
+     * ペットの表示(仮実装11/21)
+     */
+    vscode_1.window.registerWebviewViewProvider("aileSidebarView", new aileWebviewProvider_1.AileWebviewProvider(context));
     /**
      * 拡張子毎にファイル数・編集行数の統計を取得する
      */
@@ -160,6 +165,9 @@ function activate(context) {
             logFile.focusTime();
         }
     });
+    /**
+     * ウィンドウのフォーカスが外れた日時を取得する
+     */
 }
 // This method is called when your extension is deactivated
 function deactivate() { }

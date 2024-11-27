@@ -5,6 +5,7 @@ import { RecentFilesProvider } from "./recent-files-provider";
 import { Statistics, RecordStatistics } from "./statistics";
 import { LogFile } from "./logfile";
 import { UserClass } from "./user";
+import { AileWebviewProvider } from "./aileWebviewProvider";
 
 export function activate(context: ExtensionContext) {
   /**
@@ -27,6 +28,14 @@ export function activate(context: ExtensionContext) {
       window.showTextDocument(doc);
     });
   });
+
+  /**
+   * ペットの表示(仮実装11/21)
+   */
+  window.registerWebviewViewProvider(
+    "aileSidebarView",
+    new AileWebviewProvider(context)
+  );
 
   /**
    * 拡張子毎にファイル数・編集行数の統計を取得する
@@ -171,6 +180,10 @@ export function activate(context: ExtensionContext) {
       logFile.focusTime();
     }
   });
+
+  /**
+   * ウィンドウのフォーカスが外れた日時を取得する
+   */
 }
 
 // This method is called when your extension is deactivated
