@@ -24,6 +24,11 @@
         {
           "id": "recentFiles",
           "name": "Recent Files"
+        },
+        {
+          "type": "webview",
+          "id": "aileSidebarView",
+          "name": "CodeAile"
         }
       ]
     },
