@@ -4,6 +4,8 @@ export class AileHTMLManager {
   private readonly scriptUri: Uri;
   private readonly cssUri: Uri;
   private readonly imageUris: { [key: string]: Uri };
+  private aileHTMLRank: number;
+  private readonly aileUriMap: { [key: number]: Uri };
   constructor(context: ExtensionContext) {
     //JSファイルパスをWebview用のUriに変換、スクリプトを使用可能にする
     this.scriptUri = context.extensionUri.with({
@@ -18,9 +20,18 @@ export class AileHTMLManager {
         context.extensionUri,
         "media/image/floor_default.png"
       ),
-      aile: Uri.joinPath(context.extensionUri, "media/image/aile_first.png"),
+      aile: Uri.joinPath(context.extensionUri, "media/image/aile_0.png"),
       leftItem: Uri.joinPath(context.extensionUri, ""),
       rightItem: Uri.joinPath(context.extensionUri, ""),
+    };
+    this.aileHTMLRank = 0;
+    this.aileUriMap = {
+      1: Uri.joinPath(context.extensionUri, "media/image/aile_1.png"),
+      2: Uri.joinPath(context.extensionUri, "media/image/aile_2.png"),
+      3: Uri.joinPath(context.extensionUri, "media/image/aile_3.png"),
+      4: Uri.joinPath(context.extensionUri, "media/image/aile_4.png"),
+      5: Uri.joinPath(context.extensionUri, "media/image/aile_5.png"),
+      6: Uri.joinPath(context.extensionUri, "media/image/aile_6.png"),
     };
   }
 
@@ -36,10 +47,6 @@ export class AileHTMLManager {
     const aileImage = webview.asWebviewUri(this.imageUris.aile);
     const leftItemImage = webview.asWebviewUri(this.imageUris.leftItem);
     const rightItemImage = webview.asWebviewUri(this.imageUris.rightItem);
-
-    console.log(aileImage);
-    console.log(leftItemImage);
-    console.log(rightItemImage);
 
     return `
         <!DOCTYPE html>
@@ -67,23 +74,21 @@ export class AileHTMLManager {
   }
 
   /**
-   * 変更後のHTMLを応答する
-   * @param timestamp
-   * @returns string
+   * Aileの現在のランクを応答
    */
-  getChangedHTML(timestamp: string): string {
-    return `
-        <!DOCTYPE html>
-      <html lang="ja">
-      <head>
-        <meta charset="UTF-8">
-        <title>Dynamic Update</title>
-      </head>
-      <body>
-        <h1>HTMLが更新されました</h1>
-        <p>現在の時刻: ${timestamp}</p>
-      </body>
-      </html>
-    `;
+  returnAileHTMLRank(): number {
+    return this.aileHTMLRank;
+  }
+
+  /**
+   * Aileを進化させる
+   * 12/9
+   * ランクの比較とUriの更新を作った。
+   * js作ってメッセージでHTMLの更新をできるようにする。
+   */
+  evolveAile() {
+    const nextAileRank = this.aileHTMLRank + 1;
+    this.aileHTMLRank = nextAileRank;
+    this.imageUris.aile = this.aileUriMap[nextAileRank];
   }
 }

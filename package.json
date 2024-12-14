@@ -19,6 +19,15 @@
   ],
   "main": "./out/extension.js",
   "contributes": {
+    "menus": {
+      "view/title": [
+        {
+          "command": "extension.evolveAile",
+          "when": "view == aileSidebarView",
+          "group": "navigation"
+        }
+      ]
+    },
     "views": {
       "explorer": [
         {
@@ -52,6 +61,10 @@
       {
         "command": "extension.resetUserStatus",
         "title": "Reset User Status"
+      },
+      {
+        "command": "extension.evolveAile",
+        "title": "Evolve Aile"
       }
     ]
   },

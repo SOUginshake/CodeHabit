@@ -1,11 +1,12 @@
-import { ExtensionContext, window, workspace, debug, commands } from "vscode";
+import { debug, commands, ExtensionContext, window, workspace } from "vscode";
 import { join } from "path";
 import { homedir } from "os";
 import { RecentFilesProvider } from "./recent-files-provider";
-import { Statistics, RecordStatistics } from "./statistics";
+import { RecordStatistics, Statistics } from "./statistics";
 import { LogFile } from "./logfile";
 import { UserClass } from "./user";
 import { AileWebviewProvider } from "./aileWebviewProvider";
+import { AileHTMLManager } from "./aileHTMLManager";
 
 export function activate(context: ExtensionContext) {
   /**
@@ -30,12 +31,26 @@ export function activate(context: ExtensionContext) {
   });
 
   /**
-   * ペットの表示(仮実装11/21)
+   * ペットの表示
    */
-  window.registerWebviewViewProvider(
-    "aileSidebarView",
-    new AileWebviewProvider(context)
-  );
+  const aileWebviewProvider = new AileWebviewProvider(context);
+  window.registerWebviewViewProvider("aileSidebarView", aileWebviewProvider);
+
+  /**
+   * ペットの進化コマンド
+   */
+  commands.registerCommand("extension.evolveAile", () => {
+    const userRank = Number(userClass.user.userRank);
+    //ユーザーランクが正しく取得できているか確認
+    console.log(userRank);
+    const aileHTMLRank = aileWebviewProvider.getAileHTMLRank();
+    console.log(aileHTMLRank);
+    //ユーザーランク(Number)を引数に、evolveAileメソッドを呼び出す
+    if (aileHTMLRank < userRank) {
+      aileWebviewProvider.evolveAile();
+      window.showInformationMessage("進化しました");
+    }
+  });
 
   /**
    * 拡張子毎にファイル数・編集行数の統計を取得する

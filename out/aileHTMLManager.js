@@ -6,6 +6,8 @@ class AileHTMLManager {
     scriptUri;
     cssUri;
     imageUris;
+    aileHTMLRank;
+    aileUriMap;
     constructor(context) {
         //JSファイルパスをWebview用のUriに変換、スクリプトを使用可能にする
         this.scriptUri = context.extensionUri.with({
@@ -17,9 +19,18 @@ class AileHTMLManager {
         this.imageUris = {
             wall: vscode_1.Uri.joinPath(context.extensionUri, "media/image/wall_default.png"),
             floor: vscode_1.Uri.joinPath(context.extensionUri, "media/image/floor_default.png"),
-            aile: vscode_1.Uri.joinPath(context.extensionUri, "media/image/aile_first.png"),
+            aile: vscode_1.Uri.joinPath(context.extensionUri, "media/image/aile_0.png"),
             leftItem: vscode_1.Uri.joinPath(context.extensionUri, ""),
             rightItem: vscode_1.Uri.joinPath(context.extensionUri, ""),
+        };
+        this.aileHTMLRank = 0;
+        this.aileUriMap = {
+            1: vscode_1.Uri.joinPath(context.extensionUri, "media/image/aile_1.png"),
+            2: vscode_1.Uri.joinPath(context.extensionUri, "media/image/aile_2.png"),
+            3: vscode_1.Uri.joinPath(context.extensionUri, "media/image/aile_3.png"),
+            4: vscode_1.Uri.joinPath(context.extensionUri, "media/image/aile_4.png"),
+            5: vscode_1.Uri.joinPath(context.extensionUri, "media/image/aile_5.png"),
+            6: vscode_1.Uri.joinPath(context.extensionUri, "media/image/aile_6.png"),
         };
     }
     /**
@@ -34,9 +45,6 @@ class AileHTMLManager {
         const aileImage = webview.asWebviewUri(this.imageUris.aile);
         const leftItemImage = webview.asWebviewUri(this.imageUris.leftItem);
         const rightItemImage = webview.asWebviewUri(this.imageUris.rightItem);
-        console.log(aileImage);
-        console.log(leftItemImage);
-        console.log(rightItemImage);
         return `
         <!DOCTYPE html>
       <html lang="ja">
@@ -62,24 +70,10 @@ class AileHTMLManager {
       `;
     }
     /**
-     * 変更後のHTMLを応答する
-     * @param timestamp
-     * @returns string
+     * Aileの現在のランクを応答
      */
-    getChangedHTML(timestamp) {
-        return `
-        <!DOCTYPE html>
-      <html lang="ja">
-      <head>
-        <meta charset="UTF-8">
-        <title>Dynamic Update</title>
-      </head>
-      <body>
-        <h1>HTMLが更新されました</h1>
-        <p>現在の時刻: ${timestamp}</p>
-      </body>
-      </html>
-    `;
+    returnAileHTMLRank() {
+        return this.aileHTMLRank;
     }
 }
 exports.AileHTMLManager = AileHTMLManager;
