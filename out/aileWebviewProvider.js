@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AileWebviewProvider = void 0;
+const vscode_1 = require("vscode");
 const aileHTMLManager_1 = require("./aileHTMLManager");
 class AileWebviewProvider {
     context;
@@ -19,15 +20,17 @@ class AileWebviewProvider {
         const initialWebview = webviewView.webview;
         webviewView.webview.html = this.htmlManager.getInitialHTML(initialWebview);
         /**
-         * Webviewからメッセージを受信し、HTMLを変更する
+         * Aileの進化用ボタンを設定
          */
-        webviewView.webview.onDidReceiveMessage((message) => {
-            console.log(message);
-            if (message.command === "changeHTML") {
-                webviewView.webview.html = this.htmlManager.getChangedHTML(message.timestamp);
-            }
-        });
+        vscode_1.commands.executeCommand("setContext", "aileEvolution", true);
     }
+    getAileHTMLRank() {
+        return this.htmlManager.returnAileHTMLRank();
+    }
+    /**
+     * ユーザーランクと表示中のAileのランクを比較し、必要であれば進化させる
+     */
+    evolveAile(userRank) { }
 }
 exports.AileWebviewProvider = AileWebviewProvider;
 //# sourceMappingURL=aileWebviewProvider.js.map

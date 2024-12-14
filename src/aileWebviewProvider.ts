@@ -1,5 +1,6 @@
 import {
   CancellationToken,
+  commands,
   ExtensionContext,
   Webview,
   WebviewView,
@@ -33,15 +34,19 @@ export class AileWebviewProvider implements WebviewViewProvider {
     webviewView.webview.html = this.htmlManager.getInitialHTML(initialWebview);
 
     /**
-     * Webviewからメッセージを受信し、HTMLを変更する
+     * Aileの進化用ボタンを設定
      */
-    webviewView.webview.onDidReceiveMessage((message) => {
-      console.log(message);
-      if (message.command === "changeHTML") {
-        webviewView.webview.html = this.htmlManager.getChangedHTML(
-          message.timestamp
-        );
-      }
-    });
+    commands.executeCommand("setContext", "aileEvolution", true);
+  }
+
+  getAileHTMLRank(): number {
+    return this.htmlManager.returnAileHTMLRank();
+  }
+
+  /**
+   * Aileの進化メソッドを呼び出す
+   */
+  evolveAile() {
+    this.htmlManager.evolveAile();
   }
 }

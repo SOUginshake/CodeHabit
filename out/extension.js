@@ -30,9 +30,22 @@ function activate(context) {
         });
     });
     /**
-     * ペットの表示(仮実装11/21)
+     * ペットの表示
      */
-    vscode_1.window.registerWebviewViewProvider("aileSidebarView", new aileWebviewProvider_1.AileWebviewProvider(context));
+    const aileWebviewProvider = new aileWebviewProvider_1.AileWebviewProvider(context);
+    vscode_1.window.registerWebviewViewProvider("aileSidebarView", aileWebviewProvider);
+    /**
+     * ペットの進化コマンド
+     */
+    vscode_1.commands.registerCommand("extension.evolveAile", () => {
+        const userRank = Number(userClass.user.userRank);
+        //ユーザーランクが正しく取得できているか確認
+        console.log(userRank);
+        const aileHTMLRank = aileWebviewProvider.getAileHTMLRank();
+        console.log(aileHTMLRank);
+        //ユーザーランク(Number)を引数に、evolveAileメソッドを呼び出す
+        vscode_1.window.showInformationMessage("進化しました");
+    });
     /**
      * 拡張子毎にファイル数・編集行数の統計を取得する
      */
