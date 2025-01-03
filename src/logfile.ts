@@ -103,7 +103,7 @@ export class LogFile {
        * ログメッセージの作成
        */
       const existsText = readFileSync(logFilePath, "utf-8");
-      const logMessage = existsText + "FocusTime," + focusTime + ",\n";
+      const logMessage = existsText + "FocusInTime," + focusTime + ",\n";
       /**
        * 書き込み
        */
@@ -112,4 +112,8 @@ export class LogFile {
       console.error(error);
     }
   }
+
+  /**
+   * フォーカスアウトも作る。
+   */
 }

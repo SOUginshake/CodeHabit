@@ -19,12 +19,12 @@ class AileHTMLManager {
         this.imageUris = {
             wall: vscode_1.Uri.joinPath(context.extensionUri, "media/image/wall_default.png"),
             floor: vscode_1.Uri.joinPath(context.extensionUri, "media/image/floor_default.png"),
-            aile: vscode_1.Uri.joinPath(context.extensionUri, "media/image/aile_0.png"),
-            leftItem: vscode_1.Uri.joinPath(context.extensionUri, ""),
-            rightItem: vscode_1.Uri.joinPath(context.extensionUri, ""),
+            leftItem: vscode_1.Uri.joinPath(context.extensionUri, "media/image/apple.png"),
+            rightItem: vscode_1.Uri.joinPath(context.extensionUri, "media/image/subako.png"),
         };
         this.aileHTMLRank = 0;
         this.aileUriMap = {
+            0: vscode_1.Uri.joinPath(context.extensionUri, "media/image/aile_0.png"),
             1: vscode_1.Uri.joinPath(context.extensionUri, "media/image/aile_1.png"),
             2: vscode_1.Uri.joinPath(context.extensionUri, "media/image/aile_2.png"),
             3: vscode_1.Uri.joinPath(context.extensionUri, "media/image/aile_3.png"),
@@ -42,7 +42,7 @@ class AileHTMLManager {
         const cssSrc = webview.asWebviewUri(this.cssUri);
         const wallImage = webview.asWebviewUri(this.imageUris.wall);
         const floorImage = webview.asWebviewUri(this.imageUris.floor);
-        const aileImage = webview.asWebviewUri(this.imageUris.aile);
+        const aileImage = webview.asWebviewUri(this.aileUriMap[this.aileHTMLRank]);
         const leftItemImage = webview.asWebviewUri(this.imageUris.leftItem);
         const rightItemImage = webview.asWebviewUri(this.imageUris.rightItem);
         return `
@@ -74,6 +74,51 @@ class AileHTMLManager {
      */
     returnAileHTMLRank() {
         return this.aileHTMLRank;
+    }
+    /**
+     * Aileを進化させる
+     */
+    evolveAile(webview) {
+        const nextAileRank = this.aileHTMLRank + 1;
+        this.aileHTMLRank = nextAileRank;
+        const nextAileImageUri = this.aileUriMap[nextAileRank];
+        webview.postMessage({
+            command: "evolveAile",
+            imageUri: webview.asWebviewUri(nextAileImageUri),
+        });
+        webview.html = this.getUpdateHTML(webview);
+    }
+    getUpdateHTML(webview) {
+        const scriptSrc = webview.asWebviewUri(this.scriptUri);
+        const cssSrc = webview.asWebviewUri(this.cssUri);
+        const wallImage = webview.asWebviewUri(this.imageUris.wall);
+        const floorImage = webview.asWebviewUri(this.imageUris.floor);
+        const aileImage = webview.asWebviewUri(this.aileUriMap[this.aileHTMLRank]);
+        const leftItemImage = webview.asWebviewUri(this.imageUris.leftItem);
+        const rightItemImage = webview.asWebviewUri(this.imageUris.rightItem);
+        return `
+        <!DOCTYPE html>
+      <html lang="ja">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Aileの部屋</title>
+        <script src="${scriptSrc}"></script> <!-- スクリプトを読み込む -->
+        <link rel="stylesheet" href="${cssSrc}"> <!-- CSSを読み込む -->
+      </head>
+      <body>
+        <div class="room">
+            <div class="wall" style="background-image: url(${wallImage});">
+            </div>
+            <div class="floor" style="background-image: url(${floorImage});">
+                <div class="aile" style="background-image: url(${aileImage});"></div>
+                <div class="left-item" style="background-image: url(${leftItemImage});"></div>
+                <div class="right-item" style="background-image: url(${rightItemImage});"></div>
+            </div>
+        </div>
+      </body>
+      </html>
+      `;
     }
 }
 exports.AileHTMLManager = AileHTMLManager;
