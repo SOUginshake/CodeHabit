@@ -39,12 +39,12 @@ function activate(context) {
      */
     vscode_1.commands.registerCommand("extension.evolveAile", () => {
         const userRank = Number(userClass.user.userRank);
-        //ユーザーランクが正しく取得できているか確認
-        console.log(userRank);
         const aileHTMLRank = aileWebviewProvider.getAileHTMLRank();
-        console.log(aileHTMLRank);
         //ユーザーランク(Number)を引数に、evolveAileメソッドを呼び出す
-        vscode_1.window.showInformationMessage("進化しました");
+        if (aileHTMLRank < userRank) {
+            aileWebviewProvider.evolveAile();
+            vscode_1.window.showInformationMessage("進化しました");
+        }
     });
     /**
      * 拡張子毎にファイル数・編集行数の統計を取得する
@@ -159,7 +159,7 @@ function activate(context) {
      */
     vscode_1.debug.onDidTerminateDebugSession(() => {
         vscode_1.window.showInformationMessage("デバッグを終了しました");
-        const action = "EndDebug";
+        const action = "Debug";
         const activeTextEditor = vscode_1.window.activeTextEditor;
         if (activeTextEditor) {
             const filePath = activeTextEditor.document.fileName;
@@ -175,12 +175,13 @@ function activate(context) {
     vscode_1.window.onDidChangeWindowState((event) => {
         if (event.focused) {
             vscode_1.window.showInformationMessage("ウィンドウがフォーカスされました");
-            logFile.focusTime();
+            logFile.focusInTime();
+        }
+        if (!event.focused) {
+            vscode_1.window.showInformationMessage("ウィンドウのフォーカスが外れました");
+            logFile.focusOutTime();
         }
     });
-    /**
-     * ウィンドウのフォーカスが外れた日時を取得する
-     */
 }
 // This method is called when your extension is deactivated
 function deactivate() { }

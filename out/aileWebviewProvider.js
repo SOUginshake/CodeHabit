@@ -6,6 +6,7 @@ const aileHTMLManager_1 = require("./aileHTMLManager");
 class AileWebviewProvider {
     context;
     htmlManager;
+    currentWebview;
     constructor(context) {
         this.context = context;
         this.htmlManager = new aileHTMLManager_1.AileHTMLManager(context);
@@ -18,7 +19,8 @@ class AileWebviewProvider {
          * Webviewに初期HTMLを表示する
          */
         const initialWebview = webviewView.webview;
-        webviewView.webview.html = this.htmlManager.getInitialHTML(initialWebview);
+        this.currentWebview = initialWebview;
+        webviewView.webview.html = this.htmlManager.getInitialHTML(this.currentWebview);
         /**
          * Aileの進化用ボタンを設定
          */
@@ -28,9 +30,17 @@ class AileWebviewProvider {
         return this.htmlManager.returnAileHTMLRank();
     }
     /**
-     * ユーザーランクと表示中のAileのランクを比較し、必要であれば進化させる
+     * Aileの進化メソッドを呼び出す
      */
-    evolveAile(userRank) { }
+    evolveAile() {
+        if (!this.currentWebview) {
+            throw new Error("Webview is not ready");
+        }
+        else {
+            console.log(this.currentWebview);
+            this.htmlManager.evolveAile(this.currentWebview);
+        }
+    }
 }
 exports.AileWebviewProvider = AileWebviewProvider;
 //# sourceMappingURL=aileWebviewProvider.js.map

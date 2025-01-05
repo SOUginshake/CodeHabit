@@ -38,6 +38,7 @@ export class UserClass {
     }
   }
 
+  //ほぼデバッグ用
   resetUserStatus() {
     this.user = {
       name: this.userName,
@@ -61,13 +62,16 @@ export class UserClass {
         );
       }
     }
+    // ランクアップ処理(毎回メッセージがうるさい！要改善)
+    const userRankNum = Number(this.user.userRank);
     for (const userRank of userRanks) {
-      if (
-        !(this.user.userRank === userRank.rank) &&
-        userRank.condition(this.user.exp)
-      ) {
+      const checkRankNum = Number(userRank.rank);
+      if (userRankNum < checkRankNum && userRank.condition(this.user.exp)) {
         this.user.userRank = userRank.rank;
         window.showInformationMessage("Rank up to " + userRank.rank);
+      }
+      if (userRankNum === checkRankNum) {
+        window.showInformationMessage("YourRank : " + userRank.rank);
       }
     }
     this.saveUserStatus();

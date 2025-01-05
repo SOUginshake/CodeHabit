@@ -59,7 +59,10 @@
     }
 
     .item-left {
-        left: calc(37.5vh);
+        width: 25vh;
+        height: 25vh;
+        background-size: cover;
+        position: absolute;
     }
 
     .item-right {

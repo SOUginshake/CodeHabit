@@ -12,6 +12,7 @@ import { AileHTMLManager } from "./aileHTMLManager";
 export class AileWebviewProvider implements WebviewViewProvider {
   private readonly context: ExtensionContext;
   private readonly htmlManager: AileHTMLManager;
+  private currentWebview?: Webview;
 
   constructor(context: ExtensionContext) {
     this.context = context;
@@ -31,7 +32,10 @@ export class AileWebviewProvider implements WebviewViewProvider {
      * Webviewに初期HTMLを表示する
      */
     const initialWebview = webviewView.webview;
-    webviewView.webview.html = this.htmlManager.getInitialHTML(initialWebview);
+    this.currentWebview = initialWebview;
+    webviewView.webview.html = this.htmlManager.getInitialHTML(
+      this.currentWebview
+    );
 
     /**
      * Aileの進化用ボタンを設定
@@ -47,6 +51,11 @@ export class AileWebviewProvider implements WebviewViewProvider {
    * Aileの進化メソッドを呼び出す
    */
   evolveAile() {
-    this.htmlManager.evolveAile();
+    if (!this.currentWebview) {
+      throw new Error("Webview is not ready");
+    } else {
+      console.log(this.currentWebview);
+      this.htmlManager.evolveAile(this.currentWebview!);
+    }
   }
 }

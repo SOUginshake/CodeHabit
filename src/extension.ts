@@ -41,10 +41,7 @@ export function activate(context: ExtensionContext) {
    */
   commands.registerCommand("extension.evolveAile", () => {
     const userRank = Number(userClass.user.userRank);
-    //ユーザーランクが正しく取得できているか確認
-    console.log(userRank);
     const aileHTMLRank = aileWebviewProvider.getAileHTMLRank();
-    console.log(aileHTMLRank);
     //ユーザーランク(Number)を引数に、evolveAileメソッドを呼び出す
     if (aileHTMLRank < userRank) {
       aileWebviewProvider.evolveAile();
@@ -176,7 +173,7 @@ export function activate(context: ExtensionContext) {
    */
   debug.onDidTerminateDebugSession(() => {
     window.showInformationMessage("デバッグを終了しました");
-    const action = "EndDebug";
+    const action = "Debug";
     const activeTextEditor = window.activeTextEditor;
     if (activeTextEditor) {
       const filePath = activeTextEditor.document.fileName;
@@ -192,13 +189,13 @@ export function activate(context: ExtensionContext) {
   window.onDidChangeWindowState((event) => {
     if (event.focused) {
       window.showInformationMessage("ウィンドウがフォーカスされました");
-      logFile.focusTime();
+      logFile.focusInTime();
+    }
+    if (!event.focused) {
+      window.showInformationMessage("ウィンドウのフォーカスが外れました");
+      logFile.focusOutTime();
     }
   });
-
-  /**
-   * ウィンドウのフォーカスが外れた日時を取得する
-   */
 }
 
 // This method is called when your extension is deactivated
