@@ -24,13 +24,16 @@ class Statistics {
         const lineOfLogData = allLogData.split("\n");
         lineOfLogData.pop();
         /**
-         * FocusTimeとその他のログデータに分割する
+         * FocusIn(Out)Timeとその他のログデータに分割する
          */
-        const focusTimeData = lineOfLogData.filter((logData) => logData.includes("FocusTime"));
-        const filteredLogData = lineOfLogData.filter((logData) => !logData.includes("FocusTime"));
+        const focusInTimeData = lineOfLogData.filter((logData) => logData.includes("FocusInTime"));
+        const focusOutTimeData = lineOfLogData.filter((logData) => logData.includes("FocusOutTime"));
+        // FocusInTime,FocusOutTimeを除外
+        let filteredLogData = lineOfLogData.filter((logData) => !logData.includes("FocusInTime"));
+        filteredLogData = filteredLogData.filter((logData) => !logData.includes("FocusOutTime"));
         try {
             this.registerStatistics(filteredLogData);
-            this.registerFocusStatistics(focusTimeData);
+            this.registerFocusStatistics(focusInTimeData, focusOutTimeData);
         }
         catch (error) {
             console.error("statistics!!!\n" + error);
@@ -71,60 +74,56 @@ class Statistics {
     /**
      * フォーカス時間を元に統計情報をMapに登録する
      */
-    registerFocusStatistics(focusTimeData) {
+    registerFocusStatistics(focusInTimeData, focusOutTimeData) {
         let totalDays = 0;
-        let consecutiveDays = 0;
-        let maxConsecutiveDays = 0;
-        let previousDate = "";
-        for (const focusEntries of focusTimeData) {
-            const focusEntriesList = focusEntries.split(",");
-            const currentDate = focusEntriesList[1];
-            if (previousDate === "") {
-                totalDays = 1;
-                consecutiveDays = 1;
-                previousDate = currentDate;
+        const focusDatesSet = new Set();
+        for (const focusInLog of focusInTimeData) {
+            const focusInDate = new Date(focusInLog.split(",")[1].split(" ")[0]);
+            focusDatesSet.add(focusInDate);
+        }
+        // トータルの日付を取得
+        totalDays = focusDatesSet.size;
+        // 日付をソートし、連続日数を取得
+        let consecutiveDays = 1;
+        let maxConsecutiveDays = 1;
+        const sortedFocusDates = Array.from(focusDatesSet)
+            .map((date) => new Date(date))
+            .sort((a, b) => a.getTime() - b.getTime());
+        for (let i = 1; i < sortedFocusDates.length; i++) {
+            const previousDate = sortedFocusDates[i - 1];
+            const currentDate = sortedFocusDates[i];
+            const diffTime = currentDate.getTime() - previousDate.getTime();
+            const diffDays = diffTime / (1000 * 3600 * 24);
+            if (diffDays === 1) {
+                consecutiveDays++;
             }
             else {
-                if (judgeConsecutive(previousDate, currentDate)) {
-                    totalDays++;
-                    consecutiveDays++;
-                    if (maxConsecutiveDays < consecutiveDays) {
-                        maxConsecutiveDays = consecutiveDays;
-                    }
-                    console.log(totalDays + ":" + maxConsecutiveDays);
-                }
-                else if (judgeDefferent(previousDate, currentDate)) {
-                    totalDays++;
-                    consecutiveDays = 1;
-                    console.log(totalDays + ":" + maxConsecutiveDays);
-                }
-                previousDate = currentDate;
+                maxConsecutiveDays = Math.max(maxConsecutiveDays, consecutiveDays);
+                consecutiveDays = 1;
             }
         }
-        function parseDate(dateStr) {
-            const datePart = dateStr.split(" ")[0];
-            const returnDate = new Date(datePart);
-            return returnDate;
+        maxConsecutiveDays = Math.max(maxConsecutiveDays, consecutiveDays);
+        // In,Outの時差からフォーカス時間を取得
+        let developTime = 0;
+        const inDateList = focusInTimeData.map((dateString) => new Date(dateString.split(",")[1]));
+        const outDateList = focusOutTimeData.map((dateString) => new Date(dateString.split(",")[1]));
+        for (let i = 0; i < outDateList.length; i++) {
+            const diffTime = outDateList[i].getTime() - inDateList[i].getTime();
+            const diffHours = diffTime / (1000 * 3600);
+            developTime += diffHours;
         }
-        function judgeDefferent(previousDate, currentDate) {
-            const pDate = previousDate.split(" ")[0];
-            const cDate = currentDate.split(" ")[0];
-            return pDate < cDate;
-        }
-        function judgeConsecutive(previousDate, currentDate) {
-            const pDate = parseDate(previousDate);
-            const cDate = parseDate(currentDate);
-            const diffTime = cDate.getTime() - pDate.getTime();
-            const diffDays = diffTime / (1000 * 3600 * 24);
-            return diffDays === 1;
-        }
-        // 統計情報をMapに登録
-        const countMap = new Map();
-        countMap.set("totalDays", totalDays);
-        countMap.set("consecutiveDays", maxConsecutiveDays);
-        this.statisticsMap.set("FocusTime", countMap);
-        // 初期化
-        previousDate = "";
+        // 時間の小数点以下を切り捨てる
+        developTime = Math.floor(developTime);
+        // 開発歴の統計情報をMapに登録
+        const totalDaysMap = new Map();
+        const consecutiveDaysMap = new Map();
+        const developTimeMap = new Map();
+        totalDaysMap.set("totalDays", totalDays);
+        consecutiveDaysMap.set("consecutiveDays", maxConsecutiveDays);
+        developTimeMap.set("developTime", developTime);
+        this.statisticsMap.set("TotalDays", totalDaysMap);
+        this.statisticsMap.set("ConsecutiveDays", consecutiveDaysMap);
+        this.statisticsMap.set("DevelopTime", developTimeMap);
     }
 }
 exports.Statistics = Statistics;

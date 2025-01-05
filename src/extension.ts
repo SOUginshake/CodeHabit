@@ -189,13 +189,13 @@ export function activate(context: ExtensionContext) {
   window.onDidChangeWindowState((event) => {
     if (event.focused) {
       window.showInformationMessage("ウィンドウがフォーカスされました");
-      logFile.focusTime();
+      logFile.focusInTime();
+    }
+    if (!event.focused) {
+      window.showInformationMessage("ウィンドウのフォーカスが外れました");
+      logFile.focusOutTime();
     }
   });
-
-  /**
-   * ウィンドウのフォーカスが外れた日時を取得する
-   */
 }
 
 // This method is called when your extension is deactivated

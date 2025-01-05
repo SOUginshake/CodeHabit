@@ -92,16 +92,38 @@ class LogFile {
     /**
      * VSCodeがフォーカスされた日時を取得し、ログファイルに書き込む
      */
-    focusTime() {
+    focusInTime() {
         const logDirPath = (0, path_1.join)((0, os_1.homedir)(), ".config", "codehabit", "logs");
         const logFilePath = (0, path_1.join)(logDirPath, "logfile.txt");
         try {
-            const focusTime = new Date().toLocaleString();
+            const focusInTime = new Date().toLocaleString();
             /**
              * ログメッセージの作成
              */
             const existsText = (0, fs_1.readFileSync)(logFilePath, "utf-8");
-            const logMessage = existsText + "FocusInTime," + focusTime + ",\n";
+            const logMessage = existsText + "FocusInTime," + focusInTime + ",\n";
+            /**
+             * 書き込み
+             */
+            (0, fs_1.writeFileSync)(logFilePath, logMessage);
+        }
+        catch (error) {
+            console.error(error);
+        }
+    }
+    /**
+     * フォーカスアウトも作る。
+     */
+    focusOutTime() {
+        const logDirPath = (0, path_1.join)((0, os_1.homedir)(), ".config", "codehabit", "logs");
+        const logFilePath = (0, path_1.join)(logDirPath, "logfile.txt");
+        try {
+            const focusOutTime = new Date().toLocaleString();
+            /**
+             * ログメッセージの作成
+             */
+            const existsText = (0, fs_1.readFileSync)(logFilePath, "utf-8");
+            const logMessage = existsText + "FocusOutTime," + focusOutTime + ",\n";
             /**
              * 書き込み
              */

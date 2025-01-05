@@ -458,10 +458,10 @@ exports.achievements = [
      * 作成したファイルの種類数
      */
     {
-        name: "3 types of extensions Created",
-        description: "3種類以上の拡張子のソースファイルを作成した",
-        exp: 100,
-        required: 3,
+        name: "2 types of extensions Created",
+        description: "2種類以上の拡張子のソースファイルを作成した",
+        exp: 20,
+        required: 2,
         progress: (statistics) => {
             let extensionTypesNum = 0;
             const createMap = statistics.get("Create");
@@ -480,23 +480,717 @@ exports.achievements = [
                     extensionTypesNum++;
                 }
             });
-            return extensionTypesNum >= 3;
+            return extensionTypesNum >= 2;
+        },
+    },
+    {
+        name: "5 types of extensions Created",
+        description: "5種類以上の拡張子のソースファイルを作成した",
+        exp: 50,
+        required: 5,
+        progress: (statistics) => {
+            let extensionTypesNum = 0;
+            const createMap = statistics.get("Create");
+            createMap?.forEach((value) => {
+                if (value > 0) {
+                    extensionTypesNum++;
+                }
+            });
+            return extensionTypesNum;
+        },
+        condition: (statistics) => {
+            let extensionTypesNum = 0;
+            const createMap = statistics.get("Create");
+            createMap?.forEach((value) => {
+                if (value > 0) {
+                    extensionTypesNum++;
+                }
+            });
+            return extensionTypesNum >= 5;
+        },
+    },
+    {
+        name: "10 types of extensions Created",
+        description: "10種類以上の拡張子のソースファイルを作成した",
+        exp: 75,
+        required: 10,
+        progress: (statistics) => {
+            let extensionTypesNum = 0;
+            const createMap = statistics.get("Create");
+            createMap?.forEach((value) => {
+                if (value > 0) {
+                    extensionTypesNum++;
+                }
+            });
+            return extensionTypesNum;
+        },
+        condition: (statistics) => {
+            let extensionTypesNum = 0;
+            const createMap = statistics.get("Create");
+            createMap?.forEach((value) => {
+                if (value > 0) {
+                    extensionTypesNum++;
+                }
+            });
+            return extensionTypesNum >= 10;
+        },
+    },
+    {
+        name: "25 types of extensions Created",
+        description: "25種類以上の拡張子のソースファイルを作成した",
+        exp: 100,
+        required: 25,
+        progress: (statistics) => {
+            let extensionTypesNum = 0;
+            const createMap = statistics.get("Create");
+            createMap?.forEach((value) => {
+                if (value > 0) {
+                    extensionTypesNum++;
+                }
+            });
+            return extensionTypesNum;
+        },
+        condition: (statistics) => {
+            let extensionTypesNum = 0;
+            const createMap = statistics.get("Create");
+            createMap?.forEach((value) => {
+                if (value > 0) {
+                    extensionTypesNum++;
+                }
+            });
+            return extensionTypesNum >= 25;
+        },
+    },
+    {
+        name: "50 types of extensions Created",
+        description: "50種類以上の拡張子のソースファイルを作成した",
+        exp: 150,
+        required: 50,
+        progress: (statistics) => {
+            let extensionTypesNum = 0;
+            const createMap = statistics.get("Create");
+            createMap?.forEach((value) => {
+                if (value > 0) {
+                    extensionTypesNum++;
+                }
+            });
+            return extensionTypesNum;
+        },
+        condition: (statistics) => {
+            let extensionTypesNum = 0;
+            const createMap = statistics.get("Create");
+            createMap?.forEach((value) => {
+                if (value > 0) {
+                    extensionTypesNum++;
+                }
+            });
+            return extensionTypesNum >= 50;
         },
     },
     /**
      * 開いたファイルの種類数
      */
+    {
+        name: "2 types of extensions Opened",
+        description: "2種類以上の拡張子のソースファイルを開いた",
+        exp: 20,
+        required: 2,
+        progress: (statistics) => {
+            let extensionTypesNum = 0;
+            const openMap = statistics.get("Open");
+            openMap?.forEach((value) => {
+                if (value > 0) {
+                    extensionTypesNum++;
+                }
+            });
+            return extensionTypesNum;
+        },
+        condition: (statistics) => {
+            let extensionTypesNum = 0;
+            const openMap = statistics.get("Open");
+            openMap?.forEach((value) => {
+                if (value > 0) {
+                    extensionTypesNum++;
+                }
+            });
+            return extensionTypesNum >= 2;
+        },
+    },
+    {
+        name: "5 types of extensions Opened",
+        description: "5種類以上の拡張子のソースファイルを開いた",
+        exp: 50,
+        required: 5,
+        progress: (statistics) => {
+            let extensionTypesNum = 0;
+            const openMap = statistics.get("Open");
+            openMap?.forEach((value) => {
+                if (value > 0) {
+                    extensionTypesNum++;
+                }
+            });
+            return extensionTypesNum;
+        },
+        condition: (statistics) => {
+            let extensionTypesNum = 0;
+            const openMap = statistics.get("Open");
+            openMap?.forEach((value) => {
+                if (value > 0) {
+                    extensionTypesNum++;
+                }
+            });
+            return extensionTypesNum >= 5;
+        },
+    },
+    {
+        name: "10 types of extensions Opened",
+        description: "10種類以上の拡張子のソースファイルを開いた",
+        exp: 75,
+        required: 10,
+        progress: (statistics) => {
+            let extensionTypesNum = 0;
+            const openMap = statistics.get("Open");
+            openMap?.forEach((value) => {
+                if (value > 0) {
+                    extensionTypesNum++;
+                }
+            });
+            return extensionTypesNum;
+        },
+        condition: (statistics) => {
+            let extensionTypesNum = 0;
+            const openMap = statistics.get("Open");
+            openMap?.forEach((value) => {
+                if (value > 0) {
+                    extensionTypesNum++;
+                }
+            });
+            return extensionTypesNum >= 10;
+        },
+    },
+    {
+        name: "25 types of extensions Opened",
+        description: "25種類以上の拡張子のソースファイルを開いた",
+        exp: 100,
+        required: 25,
+        progress: (statistics) => {
+            let extensionTypesNum = 0;
+            const openMap = statistics.get("Open");
+            openMap?.forEach((value) => {
+                if (value > 0) {
+                    extensionTypesNum++;
+                }
+            });
+            return extensionTypesNum;
+        },
+        condition: (statistics) => {
+            let extensionTypesNum = 0;
+            const openMap = statistics.get("Open");
+            openMap?.forEach((value) => {
+                if (value > 0) {
+                    extensionTypesNum++;
+                }
+            });
+            return extensionTypesNum >= 25;
+        },
+    },
+    {
+        name: "50 types of extensions Opened",
+        description: "50種類以上の拡張子のソースファイルを開いた",
+        exp: 150,
+        required: 50,
+        progress: (statistics) => {
+            let extensionTypesNum = 0;
+            const openMap = statistics.get("Open");
+            openMap?.forEach((value) => {
+                if (value > 0) {
+                    extensionTypesNum++;
+                }
+            });
+            return extensionTypesNum;
+        },
+        condition: (statistics) => {
+            let extensionTypesNum = 0;
+            const openMap = statistics.get("Open");
+            openMap?.forEach((value) => {
+                if (value > 0) {
+                    extensionTypesNum++;
+                }
+            });
+            return extensionTypesNum >= 50;
+        },
+    },
     /**
      * デバッグしたソースファイルの種類数
      */
+    {
+        name: "2 types of extensions Debuged",
+        description: "2種類以上の拡張子のソースファイルをデバッグした",
+        exp: 30,
+        required: 2,
+        progress: (statistics) => {
+            let extensionTypesNum = 0;
+            const debugMap = statistics.get("Debug");
+            debugMap?.forEach((value) => {
+                if (value > 0) {
+                    extensionTypesNum++;
+                }
+            });
+            return extensionTypesNum;
+        },
+        condition: (statistics) => {
+            let extensionTypesNum = 0;
+            const debugMap = statistics.get("Debug");
+            debugMap?.forEach((value) => {
+                if (value > 0) {
+                    extensionTypesNum++;
+                }
+            });
+            return extensionTypesNum >= 2;
+        },
+    },
+    {
+        name: "5 types of extensions Debuged",
+        description: "5種類以上の拡張子のソースファイルをデバッグした",
+        exp: 60,
+        required: 5,
+        progress: (statistics) => {
+            let extensionTypesNum = 0;
+            const debugMap = statistics.get("Open");
+            debugMap?.forEach((value) => {
+                if (value > 0) {
+                    extensionTypesNum++;
+                }
+            });
+            return extensionTypesNum;
+        },
+        condition: (statistics) => {
+            let extensionTypesNum = 0;
+            const debugMap = statistics.get("Open");
+            debugMap?.forEach((value) => {
+                if (value > 0) {
+                    extensionTypesNum++;
+                }
+            });
+            return extensionTypesNum >= 5;
+        },
+    },
+    {
+        name: "10 types of extensions Debuged",
+        description: "10種類以上の拡張子のソースファイルをデバッグした",
+        exp: 120,
+        required: 10,
+        progress: (statistics) => {
+            let extensionTypesNum = 0;
+            const debugMap = statistics.get("Open");
+            debugMap?.forEach((value) => {
+                if (value > 0) {
+                    extensionTypesNum++;
+                }
+            });
+            return extensionTypesNum;
+        },
+        condition: (statistics) => {
+            let extensionTypesNum = 0;
+            const debugMap = statistics.get("Open");
+            debugMap?.forEach((value) => {
+                if (value > 0) {
+                    extensionTypesNum++;
+                }
+            });
+            return extensionTypesNum >= 10;
+        },
+    },
+    {
+        name: "25 types of extensions Debuged",
+        description: "25種類以上の拡張子のソースファイルをデバッグした",
+        exp: 150,
+        required: 25,
+        progress: (statistics) => {
+            let extensionTypesNum = 0;
+            const debugMap = statistics.get("Open");
+            debugMap?.forEach((value) => {
+                if (value > 0) {
+                    extensionTypesNum++;
+                }
+            });
+            return extensionTypesNum;
+        },
+        condition: (statistics) => {
+            let extensionTypesNum = 0;
+            const debugMap = statistics.get("Open");
+            debugMap?.forEach((value) => {
+                if (value > 0) {
+                    extensionTypesNum++;
+                }
+            });
+            return extensionTypesNum >= 25;
+        },
+    },
+    {
+        name: "50 types of extensions Debuged",
+        description: "50種類以上の拡張子のソースファイルをデバッグした",
+        exp: 200,
+        required: 50,
+        progress: (statistics) => {
+            let extensionTypesNum = 0;
+            const debugMap = statistics.get("Open");
+            debugMap?.forEach((value) => {
+                if (value > 0) {
+                    extensionTypesNum++;
+                }
+            });
+            return extensionTypesNum;
+        },
+        condition: (statistics) => {
+            let extensionTypesNum = 0;
+            const debugMap = statistics.get("Open");
+            debugMap?.forEach((value) => {
+                if (value > 0) {
+                    extensionTypesNum++;
+                }
+            });
+            return extensionTypesNum >= 50;
+        },
+    },
     /**
      * 総開発日数
      */
+    {
+        name: "Total Develop Days over 1",
+        description: "総開発日数が1日以上",
+        exp: 10,
+        required: 1,
+        progress: (statistics) => {
+            let totalDays = 0;
+            const totalDaysMap = statistics.get("TotalDays");
+            totalDaysMap?.forEach((value) => {
+                totalDays += value;
+            });
+            return totalDays;
+        },
+        condition: (statistics) => {
+            let totalDays = 0;
+            const totalDaysMap = statistics.get("TotalDays");
+            totalDaysMap?.forEach((value) => {
+                totalDays += value;
+            });
+            return totalDays >= 1;
+        },
+    },
+    {
+        name: "Total Develop Days over 30",
+        description: "総開発日数が30日以上",
+        exp: 25,
+        required: 30,
+        progress: (statistics) => {
+            let totalDays = 0;
+            const totalDaysMap = statistics.get("TotalDays");
+            totalDaysMap?.forEach((value) => {
+                totalDays += value;
+            });
+            return totalDays;
+        },
+        condition: (statistics) => {
+            let totalDays = 0;
+            const totalDaysMap = statistics.get("TotalDays");
+            totalDaysMap?.forEach((value) => {
+                totalDays += value;
+            });
+            return totalDays >= 30;
+        },
+    },
+    {
+        name: "Total Develop Days over 100",
+        description: "総開発日数が100日以上",
+        exp: 50,
+        required: 100,
+        progress: (statistics) => {
+            let totalDays = 0;
+            const totalDaysMap = statistics.get("TotalDays");
+            totalDaysMap?.forEach((value) => {
+                totalDays += value;
+            });
+            return totalDays;
+        },
+        condition: (statistics) => {
+            let totalDays = 0;
+            const totalDaysMap = statistics.get("TotalDays");
+            totalDaysMap?.forEach((value) => {
+                totalDays += value;
+            });
+            return totalDays >= 100;
+        },
+    },
+    {
+        name: "Total Develop Days over 200",
+        description: "総開発日数が200日以上",
+        exp: 100,
+        required: 200,
+        progress: (statistics) => {
+            let totalDays = 0;
+            const totalDaysMap = statistics.get("TotalDays");
+            totalDaysMap?.forEach((value) => {
+                totalDays += value;
+            });
+            return totalDays;
+        },
+        condition: (statistics) => {
+            let totalDays = 0;
+            const totalDaysMap = statistics.get("TotalDays");
+            totalDaysMap?.forEach((value) => {
+                totalDays += value;
+            });
+            return totalDays >= 200;
+        },
+    },
+    {
+        name: "Total Develop Days over 500",
+        description: "総開発日数が500日以上",
+        exp: 150,
+        required: 500,
+        progress: (statistics) => {
+            let totalDays = 0;
+            const totalDaysMap = statistics.get("TotalDays");
+            totalDaysMap?.forEach((value) => {
+                totalDays += value;
+            });
+            return totalDays;
+        },
+        condition: (statistics) => {
+            let totalDays = 0;
+            const totalDaysMap = statistics.get("TotalDays");
+            totalDaysMap?.forEach((value) => {
+                totalDays += value;
+            });
+            return totalDays >= 500;
+        },
+    },
     /**
      * 連続開発日数
      */
+    {
+        name: "Consecutive Develop Days over 2",
+        description: "連続開発日数が2日以上",
+        exp: 20,
+        required: 2,
+        progress: (statistics) => {
+            let consecutiveDays = 0;
+            const consecutiveDaysMap = statistics.get("ConsecutiveDays");
+            consecutiveDaysMap?.forEach((value) => {
+                consecutiveDays += value;
+            });
+            return consecutiveDays;
+        },
+        condition: (statistics) => {
+            let consecutiveDays = 0;
+            const consecutiveDaysMap = statistics.get("ConsecutiveDays");
+            consecutiveDaysMap?.forEach((value) => {
+                consecutiveDays += value;
+            });
+            return consecutiveDays >= 2;
+        },
+    },
+    {
+        name: "Consecutive Develop Days over 7",
+        description: "連続開発日数が7日以上",
+        exp: 40,
+        required: 7,
+        progress: (statistics) => {
+            let consecutiveDays = 0;
+            const consecutiveDaysMap = statistics.get("ConsecutiveDays");
+            consecutiveDaysMap?.forEach((value) => {
+                consecutiveDays += value;
+            });
+            return consecutiveDays;
+        },
+        condition: (statistics) => {
+            let consecutiveDays = 0;
+            const consecutiveDaysMap = statistics.get("ConsecutiveDays");
+            consecutiveDaysMap?.forEach((value) => {
+                consecutiveDays += value;
+            });
+            return consecutiveDays >= 7;
+        },
+    },
+    {
+        name: "Consecutive Develop Days over 30",
+        description: "連続開発日数が30日以上",
+        exp: 80,
+        required: 30,
+        progress: (statistics) => {
+            let consecutiveDays = 0;
+            const consecutiveDaysMap = statistics.get("ConsecutiveDays");
+            consecutiveDaysMap?.forEach((value) => {
+                consecutiveDays += value;
+            });
+            return consecutiveDays;
+        },
+        condition: (statistics) => {
+            let consecutiveDays = 0;
+            const consecutiveDaysMap = statistics.get("ConsecutiveDays");
+            consecutiveDaysMap?.forEach((value) => {
+                consecutiveDays += value;
+            });
+            return consecutiveDays >= 30;
+        },
+    },
+    {
+        name: "Consecutive Develop Days over 60",
+        description: "連続開発日数が60日以上",
+        exp: 120,
+        required: 60,
+        progress: (statistics) => {
+            let consecutiveDays = 0;
+            const consecutiveDaysMap = statistics.get("ConsecutiveDays");
+            consecutiveDaysMap?.forEach((value) => {
+                consecutiveDays += value;
+            });
+            return consecutiveDays;
+        },
+        condition: (statistics) => {
+            let consecutiveDays = 0;
+            const consecutiveDaysMap = statistics.get("ConsecutiveDays");
+            consecutiveDaysMap?.forEach((value) => {
+                consecutiveDays += value;
+            });
+            return consecutiveDays >= 60;
+        },
+    },
+    {
+        name: "Consecutive Develop Days over 100",
+        description: "連続開発日数が100日以上",
+        exp: 200,
+        required: 100,
+        progress: (statistics) => {
+            let consecutiveDays = 0;
+            const consecutiveDaysMap = statistics.get("ConsecutiveDays");
+            consecutiveDaysMap?.forEach((value) => {
+                consecutiveDays += value;
+            });
+            return consecutiveDays;
+        },
+        condition: (statistics) => {
+            let consecutiveDays = 0;
+            const consecutiveDaysMap = statistics.get("ConsecutiveDays");
+            consecutiveDaysMap?.forEach((value) => {
+                consecutiveDays += value;
+            });
+            return consecutiveDays >= 100;
+        },
+    },
     /**
      * 総開発時間
      */
+    {
+        name: "Total Develop Time over 1",
+        description: "総開発時間が1時間以上",
+        exp: 10,
+        required: 1,
+        progress: (statistics) => {
+            let developTime = 0;
+            const developTimeMap = statistics.get("DevelopTime");
+            developTimeMap?.forEach((value) => {
+                developTime += value;
+            });
+            return developTime;
+        },
+        condition: (statistics) => {
+            let developTime = 0;
+            const developTimeMap = statistics.get("DevelopTime");
+            developTimeMap?.forEach((value) => {
+                developTime += value;
+            });
+            return developTime >= 1;
+        },
+    },
+    {
+        name: "Total Develop Time over 50",
+        description: "総開発時間が50時間以上",
+        exp: 25,
+        required: 50,
+        progress: (statistics) => {
+            let developTime = 0;
+            const developTimeMap = statistics.get("DevelopTime");
+            developTimeMap?.forEach((value) => {
+                developTime += value;
+            });
+            return developTime;
+        },
+        condition: (statistics) => {
+            let developTime = 0;
+            const developTimeMap = statistics.get("DevelopTime");
+            developTimeMap?.forEach((value) => {
+                developTime += value;
+            });
+            return developTime >= 50;
+        },
+    },
+    {
+        name: "Total Develop Time over 250",
+        description: "総開発時間が250時間以上",
+        exp: 50,
+        required: 250,
+        progress: (statistics) => {
+            let developTime = 0;
+            const developTimeMap = statistics.get("DevelopTime");
+            developTimeMap?.forEach((value) => {
+                developTime += value;
+            });
+            return developTime;
+        },
+        condition: (statistics) => {
+            let developTime = 0;
+            const developTimeMap = statistics.get("DevelopTime");
+            developTimeMap?.forEach((value) => {
+                developTime += value;
+            });
+            return developTime >= 250;
+        },
+    },
+    {
+        name: "Total Develop Time over 500",
+        description: "総開発時間が500時間以上",
+        exp: 100,
+        required: 500,
+        progress: (statistics) => {
+            let developTime = 0;
+            const developTimeMap = statistics.get("DevelopTime");
+            developTimeMap?.forEach((value) => {
+                developTime += value;
+            });
+            return developTime;
+        },
+        condition: (statistics) => {
+            let developTime = 0;
+            const developTimeMap = statistics.get("DevelopTime");
+            developTimeMap?.forEach((value) => {
+                developTime += value;
+            });
+            return developTime >= 500;
+        },
+    },
+    {
+        name: "Total Develop Time over 1000",
+        description: "総開発時間が1000時間以上",
+        exp: 150,
+        required: 1000,
+        progress: (statistics) => {
+            let developTime = 0;
+            const developTimeMap = statistics.get("DevelopTime");
+            developTimeMap?.forEach((value) => {
+                developTime += value;
+            });
+            return developTime;
+        },
+        condition: (statistics) => {
+            let developTime = 0;
+            const developTimeMap = statistics.get("DevelopTime");
+            developTimeMap?.forEach((value) => {
+                developTime += value;
+            });
+            return developTime >= 1000;
+        },
+    },
 ];
 //# sourceMappingURL=achievement.js.map

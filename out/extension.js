@@ -175,12 +175,13 @@ function activate(context) {
     vscode_1.window.onDidChangeWindowState((event) => {
         if (event.focused) {
             vscode_1.window.showInformationMessage("ウィンドウがフォーカスされました");
-            logFile.focusTime();
+            logFile.focusInTime();
+        }
+        if (!event.focused) {
+            vscode_1.window.showInformationMessage("ウィンドウのフォーカスが外れました");
+            logFile.focusOutTime();
         }
     });
-    /**
-     * ウィンドウのフォーカスが外れた日時を取得する
-     */
 }
 // This method is called when your extension is deactivated
 function deactivate() { }

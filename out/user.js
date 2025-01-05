@@ -27,6 +27,7 @@ class UserClass {
             this.user = savedStatus;
         }
     }
+    //ほぼデバッグ用
     resetUserStatus() {
         this.user = {
             name: this.userName,
@@ -45,11 +46,16 @@ class UserClass {
                 vscode_1.window.showInformationMessage("unlocked : " + achievement.name + " exp : " + achievement.exp);
             }
         }
+        // ランクアップ処理(毎回メッセージがうるさい！要改善)
+        const userRankNum = Number(this.user.userRank);
         for (const userRank of user_rank_1.userRanks) {
-            if (!(this.user.userRank === userRank.rank) &&
-                userRank.condition(this.user.exp)) {
+            const checkRankNum = Number(userRank.rank);
+            if (userRankNum < checkRankNum && userRank.condition(this.user.exp)) {
                 this.user.userRank = userRank.rank;
                 vscode_1.window.showInformationMessage("Rank up to " + userRank.rank);
+            }
+            if (userRankNum === checkRankNum) {
+                vscode_1.window.showInformationMessage("YourRank : " + userRank.rank);
             }
         }
         this.saveUserStatus();
