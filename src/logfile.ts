@@ -59,7 +59,6 @@ export class LogFile {
 
   /**
    * ファイルの編集行数を取得し、ログファイルに書き込む
-   * カウントがなんか違うの気になる！余裕あったら直す！7/2
    */
   changeLineCount(previousText: string, currentText: string, filePath: string) {
     const logDirPath = join(homedir(), ".config", "codehabit", "logs");
@@ -69,9 +68,9 @@ export class LogFile {
     try {
       changes.forEach((change) => {
         if (change.added) {
-          //console.log("change value", change.value);
+          console.log("change value", change.value);
           const lines = change.value.split("\n").slice(0, -1).length;
-          //console.log("lines", lines);
+          console.log("lines", lines);
           changeCount += lines;
         }
       });
@@ -81,7 +80,6 @@ export class LogFile {
       const existsText = readFileSync(logFilePath, "utf-8");
       const logMessage =
         existsText + "ChangeLineCount," + filePath + "," + changeCount + ",\n";
-      //console.log("ChangeLineCount", changeCount);
       /**
        * 書き込み
        */

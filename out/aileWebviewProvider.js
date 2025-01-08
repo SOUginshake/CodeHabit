@@ -37,7 +37,6 @@ class AileWebviewProvider {
             throw new Error("Webview is not ready");
         }
         else {
-            console.log(this.currentWebview);
             this.htmlManager.evolveAile(this.currentWebview);
         }
     }
