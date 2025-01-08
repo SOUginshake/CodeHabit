@@ -54,7 +54,6 @@ export class AileWebviewProvider implements WebviewViewProvider {
     if (!this.currentWebview) {
       throw new Error("Webview is not ready");
     } else {
-      console.log(this.currentWebview);
       this.htmlManager.evolveAile(this.currentWebview!);
     }
   }

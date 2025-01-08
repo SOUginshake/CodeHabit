@@ -6,7 +6,6 @@ import { RecordStatistics, Statistics } from "./statistics";
 import { LogFile } from "./logfile";
 import { UserClass } from "./user";
 import { AileWebviewProvider } from "./aileWebviewProvider";
-import { AileHTMLManager } from "./aileHTMLManager";
 
 export function activate(context: ExtensionContext) {
   /**
@@ -186,6 +185,10 @@ export function activate(context: ExtensionContext) {
   /**
    * ウィンドウがフォーカスされた日時を取得する
    */
+
+  // 拡張機能起動時に、focusInを記録する
+  logFile.focusInTime();
+
   window.onDidChangeWindowState((event) => {
     if (event.focused) {
       window.showInformationMessage("ウィンドウがフォーカスされました");

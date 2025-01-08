@@ -2,7 +2,7 @@
   "name": "codeaile",
   "displayName": "CodeAile",
   "publisher": "SOUginshake",
-  "description": "開発を行うことで実績を達成し、自身の成長を可視化する機能",
+  "description": "開発を行うことで実績を達成し、バーチャルペットを育てることで、自身の成長を可視化する機能",
   "version": "1.0.0",
   "repository": {
     "type": "git",
@@ -95,7 +95,7 @@
     "@vscode/test-cli": "^0.0.9",
     "@vscode/test-electron": "^2.3.9",
     "@vscode/vsce": "^2.29.0",
-    "eslint": "^8.57.0",
+    "eslint": "^8.57.1",
     "typescript": "^5.4.5"
   }
 }

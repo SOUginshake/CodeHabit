@@ -50,21 +50,18 @@
     }
 
     /*アイテムのスタイル*/
-    .item {
-        width: 25vh;
-        height: 25vh;
-        background-size: cover;
-        position: absolute;
-        top: calc(-12.5vh);
-    }
-
     .item-left {
-        width: 25vh;
-        height: 25vh;
+        width: 15vh;
+        height: 15vh;
         background-size: cover;
         position: absolute;
+        transform: translate(-150%, -150%);
     }
 
     .item-right {
-        right: calc(37.5vh);
+      width: 15vh;
+      height: 15vh;
+      background-size: cover;
+      position: absolute;
+      transform: translate(150%, -150%);
     }

@@ -172,6 +172,8 @@ function activate(context) {
     /**
      * ウィンドウがフォーカスされた日時を取得する
      */
+    // 拡張機能起動時に、focusInを記録する
+    logFile.focusInTime();
     vscode_1.window.onDidChangeWindowState((event) => {
         if (event.focused) {
             vscode_1.window.showInformationMessage("ウィンドウがフォーカスされました");

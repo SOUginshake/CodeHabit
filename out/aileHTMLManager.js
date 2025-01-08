@@ -61,8 +61,8 @@ class AileHTMLManager {
             </div>
             <div class="floor" style="background-image: url(${floorImage});">
                 <div class="aile" style="background-image: url(${aileImage});"></div>
-                <div class="left-item" style="background-image: url(${leftItemImage});"></div>
-                <div class="right-item" style="background-image: url(${rightItemImage});"></div>
+                <div class="item-left" style="background-image: url(${leftItemImage});"></div>
+                <div class="item-right" style="background-image: url(${rightItemImage});"></div>
             </div>
         </div>
       </body>
@@ -82,10 +82,6 @@ class AileHTMLManager {
         const nextAileRank = this.aileHTMLRank + 1;
         this.aileHTMLRank = nextAileRank;
         const nextAileImageUri = this.aileUriMap[nextAileRank];
-        webview.postMessage({
-            command: "evolveAile",
-            imageUri: webview.asWebviewUri(nextAileImageUri),
-        });
         webview.html = this.getUpdateHTML(webview);
     }
     getUpdateHTML(webview) {
@@ -112,8 +108,8 @@ class AileHTMLManager {
             </div>
             <div class="floor" style="background-image: url(${floorImage});">
                 <div class="aile" style="background-image: url(${aileImage});"></div>
-                <div class="left-item" style="background-image: url(${leftItemImage});"></div>
-                <div class="right-item" style="background-image: url(${rightItemImage});"></div>
+                <div class="item-left" style="background-image: url(${leftItemImage});"></div>
+                <div class="item-right" style="background-image: url(${rightItemImage});"></div>
             </div>
         </div>
       </body>
