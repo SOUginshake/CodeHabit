@@ -40,6 +40,17 @@ class AileWebviewProvider {
             this.htmlManager.evolveAile(this.currentWebview);
         }
     }
+    /**
+     * アイテムを設置するメソッドを呼び出す
+     */
+    setItem(leftItem, rightItem) {
+        if (!this.currentWebview) {
+            throw new Error("Webview is not ready");
+        }
+        else {
+            this.htmlManager.setItem(this.currentWebview, leftItem, rightItem);
+        }
+    }
 }
 exports.AileWebviewProvider = AileWebviewProvider;
 //# sourceMappingURL=aileWebviewProvider.js.map

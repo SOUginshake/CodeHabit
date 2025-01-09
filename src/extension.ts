@@ -87,6 +87,40 @@ export function activate(context: ExtensionContext) {
   });
 
   /**
+   * アイテムを設置するコマンド
+   */
+  commands.registerCommand("extension.setItem", async () => {
+    const items: string[] = [
+      "water",
+      "apple",
+      "subako",
+      "rasberry",
+      "tullip",
+      "grape",
+      "ryuuboku",
+      "kirikabu",
+      "iwa",
+      "oukan",
+    ];
+
+    // アイテム群の設定
+    let unlockedItems: string[] = [];
+    const itemNum = userClass.user.unlockedAchievements.length / 5;
+    for (let i = 0; i < itemNum; i++) {
+      unlockedItems.push(items[i]);
+    }
+
+    // アイテムを選択する
+    const leftItem = await window.showQuickPick(unlockedItems, {
+      placeHolder: "左側に設置するアイテムを選択してください",
+    });
+    const rightItem = await window.showQuickPick(unlockedItems, {
+      placeHolder: "右側に設置するアイテムを選択してください",
+    });
+    aileWebviewProvider.setItem(leftItem ?? "none", rightItem ?? "none");
+  });
+
+  /**
    * 統計情報・実績達成状況を更新する
    */
   const interval = 5 * 60 * 1000;

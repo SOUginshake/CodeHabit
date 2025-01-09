@@ -61,14 +61,19 @@ export class UserClass {
           "unlocked : " + achievement.name + " exp : " + achievement.exp
         );
       }
+      if (this.user.unlockedAchievements.length % 5 === 0) {
+        window.showInformationMessage("アイテムが解放されました!(PIボタン)");
+      }
     }
-    // ランクアップ処理(毎回メッセージがうるさい！要改善)
+    // ランクアップ処理
     const userRankNum = Number(this.user.userRank);
     for (const userRank of userRanks) {
       const checkRankNum = Number(userRank.rank);
       if (userRankNum < checkRankNum && userRank.condition(this.user.exp)) {
         this.user.userRank = userRank.rank;
-        window.showInformationMessage("Rank up to " + userRank.rank);
+        window.showInformationMessage(
+          "Rank up to " + userRank.rank + "!\nAileが進化可能です!(EAボタン)"
+        );
       }
       if (userRankNum === checkRankNum) {
         window.showInformationMessage("YourRank : " + userRank.rank);

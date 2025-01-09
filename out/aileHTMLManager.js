@@ -8,6 +8,7 @@ class AileHTMLManager {
     imageUris;
     aileHTMLRank;
     aileUriMap;
+    itemUriMap;
     constructor(context) {
         //JSファイルパスをWebview用のUriに変換、スクリプトを使用可能にする
         this.scriptUri = context.extensionUri.with({
@@ -31,6 +32,19 @@ class AileHTMLManager {
             4: vscode_1.Uri.joinPath(context.extensionUri, "media/image/aile_4.png"),
             5: vscode_1.Uri.joinPath(context.extensionUri, "media/image/aile_5.png"),
             6: vscode_1.Uri.joinPath(context.extensionUri, "media/image/aile_6.png"),
+        };
+        this.itemUriMap = {
+            none: vscode_1.Uri.joinPath(context.extensionUri, ""),
+            kirikabu: vscode_1.Uri.joinPath(context.extensionUri, "media/image/kirikabu.png"),
+            ryuuboku: vscode_1.Uri.joinPath(context.extensionUri, "media/image/ryuuboku.png"),
+            apple: vscode_1.Uri.joinPath(context.extensionUri, "media/image/apple.png"),
+            grape: vscode_1.Uri.joinPath(context.extensionUri, "media/image/grape.png"),
+            rasberry: vscode_1.Uri.joinPath(context.extensionUri, "media/image/rasberry.png"),
+            water: vscode_1.Uri.joinPath(context.extensionUri, "media/image/water.png"),
+            subako: vscode_1.Uri.joinPath(context.extensionUri, "media/image/subako.png"),
+            oukan: vscode_1.Uri.joinPath(context.extensionUri, "media/image/oukan.png"),
+            iwa: vscode_1.Uri.joinPath(context.extensionUri, "media/image/iwa.png"),
+            tullip: vscode_1.Uri.joinPath(context.extensionUri, "media/image/tullip.png"),
         };
     }
     /**
@@ -81,9 +95,19 @@ class AileHTMLManager {
     evolveAile(webview) {
         const nextAileRank = this.aileHTMLRank + 1;
         this.aileHTMLRank = nextAileRank;
-        const nextAileImageUri = this.aileUriMap[nextAileRank];
         webview.html = this.getUpdateHTML(webview);
     }
+    /**
+     * アイテムの設置
+     */
+    setItem(webview, leftStr, rightStr) {
+        this.imageUris.leftItem = this.itemUriMap[leftStr];
+        this.imageUris.rightItem = this.itemUriMap[rightStr];
+        webview.html = this.getUpdateHTML(webview);
+    }
+    /**
+     * 更新後のHTMLを応答
+     */
     getUpdateHTML(webview) {
         const scriptSrc = webview.asWebviewUri(this.scriptUri);
         const cssSrc = webview.asWebviewUri(this.cssUri);

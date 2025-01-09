@@ -6,6 +6,7 @@ export class AileHTMLManager {
   private readonly imageUris: { [key: string]: Uri };
   private aileHTMLRank: number;
   private readonly aileUriMap: { [key: number]: Uri };
+  private readonly itemUriMap: { [key: string]: Uri };
 
   constructor(context: ExtensionContext) {
     //JSファイルパスをWebview用のUriに変換、スクリプトを使用可能にする
@@ -33,6 +34,19 @@ export class AileHTMLManager {
       4: Uri.joinPath(context.extensionUri, "media/image/aile_4.png"),
       5: Uri.joinPath(context.extensionUri, "media/image/aile_5.png"),
       6: Uri.joinPath(context.extensionUri, "media/image/aile_6.png"),
+    };
+    this.itemUriMap = {
+      none: Uri.joinPath(context.extensionUri, ""),
+      kirikabu: Uri.joinPath(context.extensionUri, "media/image/kirikabu.png"),
+      ryuuboku: Uri.joinPath(context.extensionUri, "media/image/ryuuboku.png"),
+      apple: Uri.joinPath(context.extensionUri, "media/image/apple.png"),
+      grape: Uri.joinPath(context.extensionUri, "media/image/grape.png"),
+      rasberry: Uri.joinPath(context.extensionUri, "media/image/rasberry.png"),
+      water: Uri.joinPath(context.extensionUri, "media/image/water.png"),
+      subako: Uri.joinPath(context.extensionUri, "media/image/subako.png"),
+      oukan: Uri.joinPath(context.extensionUri, "media/image/oukan.png"),
+      iwa: Uri.joinPath(context.extensionUri, "media/image/iwa.png"),
+      tullip: Uri.joinPath(context.extensionUri, "media/image/tullip.png"),
     };
   }
 
@@ -87,10 +101,21 @@ export class AileHTMLManager {
   evolveAile(webview: Webview) {
     const nextAileRank = this.aileHTMLRank + 1;
     this.aileHTMLRank = nextAileRank;
-    const nextAileImageUri = this.aileUriMap[nextAileRank];
     webview.html = this.getUpdateHTML(webview);
   }
 
+  /**
+   * アイテムの設置
+   */
+  setItem(webview: Webview, leftStr: string, rightStr: string) {
+    this.imageUris.leftItem = this.itemUriMap[leftStr];
+    this.imageUris.rightItem = this.itemUriMap[rightStr];
+    webview.html = this.getUpdateHTML(webview);
+  }
+
+  /**
+   * 更新後のHTMLを応答
+   */
   getUpdateHTML(webview: Webview): string {
     const scriptSrc = webview.asWebviewUri(this.scriptUri);
     const cssSrc = webview.asWebviewUri(this.cssUri);
