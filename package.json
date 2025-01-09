@@ -3,7 +3,7 @@
   "displayName": "CodeAile",
   "publisher": "SOUginshake",
   "description": "開発を行うことで実績を達成し、バーチャルペットを育てることで、自身の成長を可視化する機能",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/SOUginshake/CodeHabit/tree/master"
