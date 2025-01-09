@@ -174,14 +174,18 @@ function activate(context) {
      */
     // 拡張機能起動時に、focusInを記録する
     logFile.focusInTime();
+    // FocusIn,Outのフラグ
+    let focusFlag = true;
     vscode_1.window.onDidChangeWindowState((event) => {
-        if (event.focused) {
+        if (event.focused && !focusFlag) {
             vscode_1.window.showInformationMessage("ウィンドウがフォーカスされました");
             logFile.focusInTime();
+            focusFlag = true;
         }
-        if (!event.focused) {
+        if (!event.focused && focusFlag) {
             vscode_1.window.showInformationMessage("ウィンドウのフォーカスが外れました");
             logFile.focusOutTime();
+            focusFlag = false;
         }
     });
 }

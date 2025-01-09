@@ -19,8 +19,8 @@ class AileHTMLManager {
         this.imageUris = {
             wall: vscode_1.Uri.joinPath(context.extensionUri, "media/image/wall_default.png"),
             floor: vscode_1.Uri.joinPath(context.extensionUri, "media/image/floor_default.png"),
-            leftItem: vscode_1.Uri.joinPath(context.extensionUri, "media/image/apple.png"),
-            rightItem: vscode_1.Uri.joinPath(context.extensionUri, "media/image/subako.png"),
+            leftItem: vscode_1.Uri.joinPath(context.extensionUri, ""),
+            rightItem: vscode_1.Uri.joinPath(context.extensionUri, ""),
         };
         this.aileHTMLRank = 0;
         this.aileUriMap = {

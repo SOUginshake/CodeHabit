@@ -73,15 +73,22 @@ class LogFile {
                     changeCount += lines;
                 }
             });
-            /**
-             * ログメッセージの作成
-             */
-            const existsText = (0, fs_1.readFileSync)(logFilePath, "utf-8");
-            const logMessage = existsText + "ChangeLineCount," + filePath + "," + changeCount + ",\n";
-            /**
-             * 書き込み
-             */
-            (0, fs_1.writeFileSync)(logFilePath, logMessage);
+            if (changeCount > 0) {
+                /**
+                 * ログメッセージの作成
+                 */
+                const existsText = (0, fs_1.readFileSync)(logFilePath, "utf-8");
+                const logMessage = existsText +
+                    "ChangeLineCount," +
+                    filePath +
+                    "," +
+                    changeCount +
+                    ",\n";
+                /**
+                 * 書き込み
+                 */
+                (0, fs_1.writeFileSync)(logFilePath, logMessage);
+            }
         }
         catch (error) {
             console.error(error);

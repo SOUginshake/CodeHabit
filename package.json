@@ -3,13 +3,13 @@
   "displayName": "CodeAile",
   "publisher": "SOUginshake",
   "description": "開発を行うことで実績を達成し、バーチャルペットを育てることで、自身の成長を可視化する機能",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "repository": {
     "type": "git",
     "url": "https://github.com/SOUginshake/CodeHabit/tree/master"
   },
   "engines": {
-    "vscode": "^1.88.0"
+    "vscode": "^1.96.0"
   },
   "categories": [
     "Other"
@@ -94,7 +94,7 @@
     "@typescript-eslint/parser": "^7.7.1",
     "@vscode/test-cli": "^0.0.9",
     "@vscode/test-electron": "^2.3.9",
-    "@vscode/vsce": "^2.29.0",
+    "@vscode/vsce": "^2.32.0",
     "eslint": "^8.57.1",
     "typescript": "^5.4.5"
   }
