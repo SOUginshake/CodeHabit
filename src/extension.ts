@@ -185,18 +185,22 @@ export function activate(context: ExtensionContext) {
   /**
    * ウィンドウがフォーカスされた日時を取得する
    */
-
   // 拡張機能起動時に、focusInを記録する
   logFile.focusInTime();
 
+  // FocusIn,Outのフラグ
+  let focusFlag = true;
+
   window.onDidChangeWindowState((event) => {
-    if (event.focused) {
+    if (event.focused && !focusFlag) {
       window.showInformationMessage("ウィンドウがフォーカスされました");
       logFile.focusInTime();
+      focusFlag = true;
     }
-    if (!event.focused) {
+    if (!event.focused && focusFlag) {
       window.showInformationMessage("ウィンドウのフォーカスが外れました");
       logFile.focusOutTime();
+      focusFlag = false;
     }
   });
 }

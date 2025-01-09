@@ -74,16 +74,23 @@ export class LogFile {
           changeCount += lines;
         }
       });
-      /**
-       * ログメッセージの作成
-       */
-      const existsText = readFileSync(logFilePath, "utf-8");
-      const logMessage =
-        existsText + "ChangeLineCount," + filePath + "," + changeCount + ",\n";
-      /**
-       * 書き込み
-       */
-      writeFileSync(logFilePath, logMessage);
+      if (changeCount > 0) {
+        /**
+         * ログメッセージの作成
+         */
+        const existsText = readFileSync(logFilePath, "utf-8");
+        const logMessage =
+          existsText +
+          "ChangeLineCount," +
+          filePath +
+          "," +
+          changeCount +
+          ",\n";
+        /**
+         * 書き込み
+         */
+        writeFileSync(logFilePath, logMessage);
+      }
     } catch (error) {
       console.error(error);
     }

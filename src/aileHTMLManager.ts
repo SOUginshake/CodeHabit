@@ -21,8 +21,8 @@ export class AileHTMLManager {
         context.extensionUri,
         "media/image/floor_default.png"
       ),
-      leftItem: Uri.joinPath(context.extensionUri, "media/image/apple.png"),
-      rightItem: Uri.joinPath(context.extensionUri, "media/image/subako.png"),
+      leftItem: Uri.joinPath(context.extensionUri, ""),
+      rightItem: Uri.joinPath(context.extensionUri, ""),
     };
     this.aileHTMLRank = 0;
     this.aileUriMap = {
