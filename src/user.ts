@@ -62,7 +62,7 @@ export class UserClass {
         );
       }
       if (this.user.unlockedAchievements.length % 5 === 0) {
-        window.showInformationMessage("置物が解放されました!(PIボタン)");
+        window.showInformationMessage("アイテムが解放されました!(PIボタン)");
       }
     }
     // ランクアップ処理

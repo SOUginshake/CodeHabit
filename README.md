@@ -12,9 +12,11 @@ VScodeのサイドバーを部屋に見立て、その中でペットを育成�
 
 進化可能な状態であれば、画面例にある、EA(Evolve Aile)ボタンを押すことで、Aileが進化します。
 
+アイテムが解禁されていれば、SIボタンを押すことでAileの左右にアイテムを設置できます。
+
 - 実行画面例
 
-![プレビュー](./media/image/codeaile_purebyu-.png)
+![プレビュー](./media/image/codeaile_pre.png)
 
 ### 実績システム
 
