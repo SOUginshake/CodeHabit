@@ -46,7 +46,7 @@ class UserClass {
                 vscode_1.window.showInformationMessage("unlocked : " + achievement.name + " exp : " + achievement.exp);
             }
             if (this.user.unlockedAchievements.length % 5 === 0) {
-                vscode_1.window.showInformationMessage("置物が解放されました!(PIボタン)");
+                vscode_1.window.showInformationMessage("アイテムが解放されました!(PIボタン)");
             }
         }
         // ランクアップ処理
