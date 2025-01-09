@@ -57,4 +57,15 @@ export class AileWebviewProvider implements WebviewViewProvider {
       this.htmlManager.evolveAile(this.currentWebview!);
     }
   }
+
+  /**
+   * アイテムを設置するメソッドを呼び出す
+   */
+  setItem(leftItem: string, rightItem: string) {
+    if (!this.currentWebview) {
+      throw new Error("Webview is not ready");
+    } else {
+      this.htmlManager.setItem(this.currentWebview!, leftItem, rightItem);
+    }
+  }
 }

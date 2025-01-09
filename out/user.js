@@ -45,14 +45,17 @@ class UserClass {
                 this.user.unlockedAchievements.push(achievement.name);
                 vscode_1.window.showInformationMessage("unlocked : " + achievement.name + " exp : " + achievement.exp);
             }
+            if (this.user.unlockedAchievements.length % 5 === 0) {
+                vscode_1.window.showInformationMessage("置物が解放されました!(PIボタン)");
+            }
         }
-        // ランクアップ処理(毎回メッセージがうるさい！要改善)
+        // ランクアップ処理
         const userRankNum = Number(this.user.userRank);
         for (const userRank of user_rank_1.userRanks) {
             const checkRankNum = Number(userRank.rank);
             if (userRankNum < checkRankNum && userRank.condition(this.user.exp)) {
                 this.user.userRank = userRank.rank;
-                vscode_1.window.showInformationMessage("Rank up to " + userRank.rank);
+                vscode_1.window.showInformationMessage("Rank up to " + userRank.rank + "!\nAileが進化可能です!(EAボタン)");
             }
             if (userRankNum === checkRankNum) {
                 vscode_1.window.showInformationMessage("YourRank : " + userRank.rank);

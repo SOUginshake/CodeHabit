@@ -27,6 +27,11 @@
           "group": "navigation"
         },
         {
+          "command": "extension.setItem",
+          "when": "view == aileSidebarView",
+          "group": "navigation"
+        },
+        {
           "command": "extension.showUserStatus",
           "when": "view == aileSidebarView",
           "group": "navigation"
@@ -70,6 +75,10 @@
       {
         "command": "extension.evolveAile",
         "title": "EA"
+      },
+      {
+        "command": "extension.setItem",
+        "title": "SI"
       }
     ]
   },
