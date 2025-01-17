@@ -58,7 +58,7 @@ export function activate(context: ExtensionContext) {
     const statistics = new Statistics();
     const recordStatistics = new RecordStatistics();
 
-    const logDirPath = join(homedir(), ".config", "codehabit", "logs");
+    const logDirPath = join(homedir(), ".config", "codeaile", "logs");
     const logFilePath = join(logDirPath, "logfile.txt");
     try {
       const statisticsData = statistics.getStatistics(logFilePath);
@@ -80,7 +80,7 @@ export function activate(context: ExtensionContext) {
    */
   commands.registerCommand("extension.checkAchievements", () => {
     const statistics = new Statistics();
-    const logDirPath = join(homedir(), ".config", "codehabit", "logs");
+    const logDirPath = join(homedir(), ".config", "codeaile", "logs");
     const logFilePath = join(logDirPath, "logfile.txt");
     const statisticsData = statistics.getStatistics(logFilePath);
     userClass.checkAchievements(statisticsData);
@@ -134,7 +134,7 @@ export function activate(context: ExtensionContext) {
    */
   commands.registerCommand("extension.showUserStatus", () => {
     const statistics = new Statistics();
-    const logDirPath = join(homedir(), ".config", "codehabit", "logs");
+    const logDirPath = join(homedir(), ".config", "codeaile", "logs");
     const logFilePath = join(logDirPath, "logfile.txt");
     const statisticsData = statistics.getStatistics(logFilePath);
     userClass.showUserStatus(statisticsData);

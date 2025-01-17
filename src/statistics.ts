@@ -164,7 +164,7 @@ export class RecordStatistics {
     const statisticsDirPath = join(
       homedir(),
       ".config",
-      "codehabit",
+      "codeaile",
       "statistics"
     );
 
