@@ -9,7 +9,7 @@ export class LogFile {
    * ログファイルが存在するか確認し、存在しない場合は新規作成する
    */
   startupLogFile() {
-    const logDirPath = join(homedir(), ".config", "codehabit", "logs");
+    const logDirPath = join(homedir(), ".config", "codeaile", "logs");
 
     if (!existsSync(logDirPath)) {
       mkdirSync(logDirPath, { recursive: true });
@@ -29,7 +29,7 @@ export class LogFile {
    * @param event
    */
   wrightLogFile(action: string, filePath: string) {
-    const logDirPath = join(homedir(), ".config", "codehabit", "logs");
+    const logDirPath = join(homedir(), ".config", "codeaile", "logs");
     const logFilePath = join(logDirPath, "logfile.txt");
     const filePathExtname = extname(filePath);
     if (filePathExtname !== "" && filePathExtname !== ".git") {
@@ -61,7 +61,7 @@ export class LogFile {
    * ファイルの編集行数を取得し、ログファイルに書き込む
    */
   changeLineCount(previousText: string, currentText: string, filePath: string) {
-    const logDirPath = join(homedir(), ".config", "codehabit", "logs");
+    const logDirPath = join(homedir(), ".config", "codeaile", "logs");
     const logFilePath = join(logDirPath, "logfile.txt");
     const changes = diffLines(previousText, currentText);
     let changeCount = 0;
@@ -100,7 +100,7 @@ export class LogFile {
    * VSCodeがフォーカスされた日時を取得し、ログファイルに書き込む
    */
   focusInTime() {
-    const logDirPath = join(homedir(), ".config", "codehabit", "logs");
+    const logDirPath = join(homedir(), ".config", "codeaile", "logs");
     const logFilePath = join(logDirPath, "logfile.txt");
     try {
       const focusInTime = new Date().toLocaleString();
@@ -122,7 +122,7 @@ export class LogFile {
    * フォーカスアウトも作る。
    */
   focusOutTime() {
-    const logDirPath = join(homedir(), ".config", "codehabit", "logs");
+    const logDirPath = join(homedir(), ".config", "codeaile", "logs");
     const logFilePath = join(logDirPath, "logfile.txt");
     try {
       const focusOutTime = new Date().toLocaleString();

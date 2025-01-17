@@ -32,7 +32,7 @@ export class RecentFilesProvider implements TreeDataProvider<RecentFileItem> {
   > = this._onDidChangeTreeData.event;
 
   private recentFiles: RecentFileItem[] = [];
-  private logDirPath: string = join(homedir(), ".config", "codehabit", "logs");
+  private logDirPath: string = join(homedir(), ".config", "codeaile", "logs");
   private logFilePath: string = "";
 
   constructor() {
